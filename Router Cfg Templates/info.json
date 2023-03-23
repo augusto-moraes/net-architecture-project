@@ -1,0 +1,39 @@
+[
+    {
+      "PEs": [
+        {
+          "name": "PE1",
+          "ip_address_g1": "192.168.0.1",
+          "ip_address_g2": "",
+          "netmask_g1" : "255.255.255.252",
+          "netmask_g2" : ""
+        },
+        {
+          "name": "PE2",
+          "ip_address_g1": "192.168.0.10",
+          "ip_address_g2": "",
+          "netmask_g1" : "255.255.255.252",
+          "netmask_g2" : ""
+        }
+      ]
+    },
+    {
+        "Ps": [
+          {
+            "name": "P1",
+            "ip_address_g1": "192.168.0.2",
+            "ip_address_g2": "192.168.0.5",
+            "netmask_g1" : "255.255.255.252",
+            "netmask_g2" : "255.255.255.252"
+          },
+          {
+            "name": "P2",
+            "ip_address_g1": "192.168.0.9",
+            "ip_address_g2": "192.168.0.6",
+            "netmask_g1" : "255.255.255.252",
+            "netmask_g2" : "255.255.255.252"
+
+          }
+        ]
+      }
+  ]
