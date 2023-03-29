@@ -1,0 +1,104 @@
+!
+
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname {{ hostname }}
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+no ip icmp rate-limit unreachable
+ip cef
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip tcp synwait-time 5
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address {{ loopbackAddress }} 255.255.255.255
+ ip ospf {{ processId }} area {{ areaNumber }}
+!
+interface FastEthernet0/0
+ no ip address
+ shutdown
+ duplex full
+!
+interface GigabitEthernet1/0
+ ip address {{ ipAddressG1 }} {{ netmask }}
+ ip ospf {{ processId }} area {{ areaNumber }}
+ negotiation auto
+!
+interface GigabitEthernet2/0
+ ip address {{ ipAddressG2 }} {{ netmask }}
+ ip ospf {{ processId }} area {{ areaNumber }}
+ negotiation auto
+!
+interface GigabitEthernet3/0
+ ip address {{ ipAddressG3 }} {{ netmask }}
+ ip ospf {{ processId }} area {{ areaNumber }}
+ negotiation auto
+!
+router ospf {{ processId }}
+ mpls ldp autoconfig
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ login
+!
+!
+end

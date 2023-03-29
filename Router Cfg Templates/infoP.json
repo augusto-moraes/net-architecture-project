@@ -1,0 +1,21 @@
+[
+          {
+            "hostname": "P1",
+            "loopbackAddress": "2.2.2.2",
+            "ipAddressG1": "192.168.0.3",
+            "ipAddressG2": "192.168.0.13",
+            "netmask" : "255.255.255.252",
+            "processId": "1",
+            "areaNumber": "0"
+          },
+          {
+            "hostname": "P2",
+            "loopbackAddress": "3.3.3.3",
+            "ipAddressG1": "192.168.0.5",
+            "ipAddressG2": "192.168.0.15",
+            "netmask" : "255.255.255.252",
+            "processId": "1",
+            "areaNumber": "0"
+
+          }
+        ]
