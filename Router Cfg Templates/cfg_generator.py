@@ -2,8 +2,40 @@ import jinja2
 import json
 import os
 
+# cas particulier d'un reseau en ligne (  -- P -- ... -- P --  )
+#   * nbRP : Nb de router provider (hors PEs, qui seront ajoutés apres)
+def generateInfoPs(nbRP): 
+    ip_base = "192.168.0."
 
+    data = []
+    for routerID in range(1,nbRP+1):
+        template = {}
+        at_reseau=(routerID-1)*4
+
+        template['hostname'] = 'P'+str(routerID)
+        template['loopbackAddress'] = str(routerID)+'.'+str(routerID)+'.'+str(routerID)+'.'+str(routerID)
+        
+        if routerID != 1:
+            template['ipAddressG1'] = ip_base+str(at_reseau-2) #statique pour mask /30
+        
+        if routerID != nbRP:
+            template['ipAddressG2'] = ip_base+str(at_reseau+1) #statique pour mask /30
+        
+        template['netmask'] = "255.255.255.252" #statique pour mask /30
+        template['processId'] = "1"
+        template['areaNumber'] = "0"
+        
+        data.append(template)
+
+    with open("infoPRouterList.json", "w") as jsonFile:
+        json.dump(data, jsonFile, indent=4)
+
+
+
+# Methode de Boris
 def createCfg():
+    generateInfoPs(2)
+    
     template_file_PE = "PE.j2"
     template_file_P = "P.j2"
     json_parameter_file_PE = "infoPE.json"
@@ -12,7 +44,6 @@ def createCfg():
 
     # read the contents from the JSON files
     print("Read JSON parameter file...")
-
     config_parameters_PE = json.load(open(json_parameter_file_PE))
     config_parameters_P = json.load(open(json_parameter_file_P))
 

@@ -1,0 +1,108 @@
+[
+    {
+        "hostname": "P1",
+        "loopbackAddress": "1.1.1.1",
+        "ipAddressG2": "192.168.0.1",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    },
+    {
+        "hostname": "P2",
+        "loopbackAddress": "2.2.2.2",
+        "ipAddressG1": "192.168.0.2",
+        "ipAddressG2": "192.168.0.5",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    },
+    {
+        "hostname": "P3",
+        "loopbackAddress": "3.3.3.3",
+        "ipAddressG1": "192.168.0.6",
+        "ipAddressG2": "192.168.0.9",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    },
+    {
+        "hostname": "P4",
+        "loopbackAddress": "4.4.4.4",
+        "ipAddressG1": "192.168.0.10",
+        "ipAddressG2": "192.168.0.13",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    },
+    {
+        "hostname": "P5",
+        "loopbackAddress": "5.5.5.5",
+        "ipAddressG1": "192.168.0.14",
+        "ipAddressG2": "192.168.0.17",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    },
+    {
+        "hostname": "P6",
+        "loopbackAddress": "6.6.6.6",
+        "ipAddressG1": "192.168.0.18",
+        "ipAddressG2": "192.168.0.21",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    },
+    {
+        "hostname": "P7",
+        "loopbackAddress": "7.7.7.7",
+        "ipAddressG1": "192.168.0.22",
+        "ipAddressG2": "192.168.0.25",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    },
+    {
+        "hostname": "P8",
+        "loopbackAddress": "8.8.8.8",
+        "ipAddressG1": "192.168.0.26",
+        "ipAddressG2": "192.168.0.29",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    },
+    {
+        "hostname": "P9",
+        "loopbackAddress": "9.9.9.9",
+        "ipAddressG1": "192.168.0.30",
+        "ipAddressG2": "192.168.0.33",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    },
+    {
+        "hostname": "P10",
+        "loopbackAddress": "10.10.10.10",
+        "ipAddressG1": "192.168.0.34",
+        "ipAddressG2": "192.168.0.37",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    },
+    {
+        "hostname": "P11",
+        "loopbackAddress": "11.11.11.11",
+        "ipAddressG1": "192.168.0.38",
+        "ipAddressG2": "192.168.0.41",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    },
+    {
+        "hostname": "P12",
+        "loopbackAddress": "12.12.12.12",
+        "ipAddressG1": "192.168.0.42",
+        "netmask": "255.255.255.252",
+        "processId": "1",
+        "areaNumber": "0"
+    }
+]
