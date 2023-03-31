@@ -1,9 +1,10 @@
 import jinja2
 import json
 import os
+import GNS3_Server_API
 
 
-def createCfg():
+def createCfg(project_id, node_id):
     template_file_PE = "PE.j2"
     template_file_P = "P.j2"
     json_parameter_file_PE = "infoPE.json"
@@ -32,26 +33,41 @@ def createCfg():
         os.mkdir(output_directory)
 
     # now create the templates
-    print("Create templates...")
-
+    i = 0
     for parameter in config_parameters_PE:
         result = template_PE.render(parameter)
-        f = open(os.path.join(output_directory, parameter['hostname'] + ".config"), "w")
+        f = open(os.path.join("../projects", project_id, "project-files/dynamips",
+                              node_id[i], "configs", "i" + str(i) + "_startup-config.cfg"), "w")
         f.write(result)
         f.close()
-        print("Configuration '%s' created..." % (parameter['hostname'] + ".config"))
+        i+=1
+        #print("Configuration '%s' created..." % (parameter['hostname'] + ".config"))
+
     for parameter in config_parameters_P:
         result = template_P.render(parameter)
-        f = open(os.path.join(output_directory, parameter['hostname'] + ".config"), "w")
+        f = open(os.path.join("../projects", project_id, "project-files/dynamips",
+                              node_id[i], "configs", "i" + str(i) + "_startup-config.cfg"), "w")
         f.write(result)
         f.close()
-        print("Configuration '%s' created..." % (parameter['hostname'] + ".config"))
-
-
+        i+=1
+        #print("Configuration '%s' created..." % (parameter['hostname'] + ".config"))
     print("DONE")
 
+#def change_router_config():
+#    f = open("project_id.txt", "r")
+#    project_id = f.read(-1)
+#    f.close()
+#    f = open(os.path.join("projects", project_id, "project-files/dynamips",
+#                          project_id, "i2_startup-config.cfg"), "w")
+
+
 def main():
-    createCfg()
+    lab = GNS3_Server_API.create_lab()
+    router_list = GNS3_Server_API.create_router(lab, ["PE1", "P1", "P2", "PE2"])
+    GNS3_Server_API.create_link(lab, router_list)
+    project_id = GNS3_Server_API.get_lab_id(lab)
+    node_id = GNS3_Server_API.get_node_id(router_list)
+    createCfg(project_id, node_id)
 
 if __name__ == "__main__":
     main()
