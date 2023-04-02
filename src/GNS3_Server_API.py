@@ -5,7 +5,6 @@ server = Gns3Connector(url="http://localhost:3080", user="admin", cred="1234")
 
 def create_lab() :
 	lab = Project(name="test_lab", connector=server)
-
 	try:
 		lab.create()
 	except:
