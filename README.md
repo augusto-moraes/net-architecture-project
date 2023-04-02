@@ -29,3 +29,4 @@ Creation (et envoie?) de la config sur les routeurs CE en telnet.
 **Autre**
 
 Creation config test sur JSON pour tester la creation d'un projet de A à Z.
+Redaction README / Documentation
