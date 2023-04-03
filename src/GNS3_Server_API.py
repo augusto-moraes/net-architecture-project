@@ -27,19 +27,16 @@ def create_router(lab, routers): #Create router (CE, PE, P)
 	#server.get_template_by_name("c7200")
 	#server.get_version()
 
-	router_list = {}
-	r_list = []
-	for layer, r in routers.items():
-		for i in range(len(r)):
-			router = Node(
-				project_id=lab.project_id,
-				connector=server,
-				name=r[i],
-				template="c7200")
-			router.create()
-			r_list.append(router)
-		router_list[layer] = r_list
-	#print(router_list)
+	router_list = []
+	for r in routers:
+		router = Node(
+			project_id=lab.project_id,
+			connector=server,
+			name=r,
+			template="c7200")
+		router.create()
+		router_list.append(router)
+	print(len(router_list))
 	return router_list
 
 def create_link(lab, matrix, routers, json_file): #Create links between routers
@@ -89,35 +86,45 @@ def create_link(lab, matrix, routers, json_file): #Create links between routers
 						router_interfaces[matrix[i+1][k]] -= 1
 						counter -= 1
 
-def create_link_v2(lab, router_list):
-	matrix = [[0,1,1,0,0,0,0],
-			  [1,0,0,1,0,0,0],
-			  [1,0,0,0,1,0,0],
-			  [0,1,0,0,0,1,0],
-			  [0,0,1,0,0,0,1],
-			  [0,0,0,1,0,0,0],
-			  [0,0,0,0,1,0,0]]
-	routers = ["PE1","PE2","PE3","PE4","PE5","PE6","PE7"]
+def create_link_v2(lab, router_list, json_file):
+	matrix = [[0,1,1,0,0,0,0,0,1,1,0,0,0,0,0],
+			  [1,0,0,1,0,0,0,0,1,0,1,0,0,0,0],
+			  [1,0,0,0,1,0,0,0,0,1,0,0,1,0,0],
+			  [0,1,0,0,0,1,0,0,0,0,1,0,0,0,0],
+			  [0,0,1,0,0,0,1,0,0,0,0,0,1,0,0],
+			  [0,0,0,1,0,0,0,1,0,0,1,0,0,1,0],
+			  [0,0,0,0,1,0,0,1,0,0,0,0,1,0,1],
+			  [0,0,0,0,0,1,1,0,0,0,0,0,0,1,1],
+			  [1,1,0,0,0,0,0,0,0,1,1,1,0,0,0],
+			  [1,0,1,0,0,0,0,0,1,0,0,1,1,0,0],
+			  [0,1,0,1,0,1,0,0,1,0,0,1,0,1,0],
+			  [0,0,0,0,0,0,0,0,1,1,1,0,1,1,1],
+			  [0,0,1,0,1,0,1,0,0,1,0,1,0,0,1],
+			  [0,0,0,0,0,1,0,1,0,0,1,1,0,0,1],
+			  [0,0,0,0,0,0,1,1,0,0,0,1,1,1,0]]
+	routers = ["PE1","PE2","PE3","PE4","PE5","PE6","PE7","PE8","P1","P2","P3","P4","P5","P6","P7"]
+	router_interfaces = {}
 
+	for routerPE in json_file["PE_routers"]:
+		router_interfaces[routerPE["hostname"]] = routerPE["availableInt"]
+
+	for routerP in json_file["P_routers"]:
+		router_interfaces[routerP["hostname"]] = routerP["availableInt"]
 
 	for i in range(len(matrix)):
 		for j in range(i, len(matrix[i])):
 			if matrix[i][j] == 1:
 				print("liens :", routers[i], "->", routers[j])
-
-
-				#links = [
-				#	dict(node_id=router_list[i][j].node_id,
-				#		 adapter_number=router_list[i][j], port_number=0),
-				#	dict(node_id=router_list[i][j].node_id,
-				#		 adapter_number=router_list[j][i], port_number=0)
-				#]
-				#extra_link = Link(project_id=lab.project_id, connector=server, nodes=links)
-				#extra_link.create()
-
-
-
-
+				links = [
+					dict(node_id=router_list[i].node_id,
+						 adapter_number=router_interfaces[routers[i]], port_number=0),
+					dict(node_id=router_list[j].node_id,
+						 adapter_number=router_interfaces[routers[j]], port_number=0)
+				]
+				extra_link = Link(project_id=lab.project_id, connector=server, nodes=links)
+				extra_link.create()
+				router_interfaces[routers[i]] -= 1
+				router_interfaces[routers[j]] -= 1
 
 
 def get_lab_id(lab):
@@ -133,11 +140,7 @@ def get_node_console(router_list):
 	return
 
 def main():
-	router_constellation = {"layer0": ["PE1"],
-							"layer1": ["PE2", "P1", "P2", "PE3"],
-							"layer2": ["PE4", "P3", "P4", "P5", "PE5"],
-						   	"layer3": ["PE6", "P6", "P7", "PE7"],
-						   	"layer4": ["PE8"]}
+	router_constellation = ["PE1","PE2","PE3","PE4","PE5","PE6","PE7","PE8","P1","P2","P3","P4","P5","P6","P7"]
 
 	matrix = [[0, 0, 0, 0, "PE1",0 ,0 ,0 ,0],
 				[0, "PE2", 0, "P1", 0, "P2", 0, "PE3", 0],
@@ -148,11 +151,11 @@ def main():
 	test_file = "test_config.json"
 	file = json.load(open(test_file))
 
-	lab = create_lab("test_lab41")
+	lab = create_lab("test_lab44")
 	router_list = create_router(lab, router_constellation)
 	#create_link(lab, matrix, router_list, file)
 
-	create_link_v2(lab, router_list)
+	create_link_v2(lab, router_list, file)
 
 if __name__ == "__main__":
 	main()
