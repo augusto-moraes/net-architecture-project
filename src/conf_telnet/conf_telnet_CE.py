@@ -12,7 +12,7 @@ HOST = 'localhost'
 #appel à l4API pour savoir sur quel port est chaque routeur
 tn = telnetlib.Telnet(HOST,5007)#PE1.console)
 
-def conf_Ce ():    
+def initial(router_name, conf_file):
 	#tn.read_until(b"P1>")
 	#tn.write(b"enable\n")
 	#tn.write(enablepassword.encode('ascii') + b"\n")
@@ -27,7 +27,7 @@ def conf_Ce ():
 	tn.write(b"end\r\n")
 	
 
-def conf_ebgp() :
+def ebgp(router_name, conf_file):
 	tn.write(b"conf t\r\n")
 	tn.write(b"int gigabitEthernet 1/0\r\n")
 	tn.write(b"router bgp 200\r\n")
@@ -36,15 +36,3 @@ def conf_ebgp() :
 	tn.write(b"network 5.5.5.5 mask 255.255.255.255\r\n")
 	tn.write(b"neighbor 192.168.201.1 activate\r\n")
 	tn.write(b"end\r\n")
-
-	
-
-def main():
-	conf_Ce()
-	conf_ebgp()
-
-	
-
-
-if __name__ == "__main__":
-	main()

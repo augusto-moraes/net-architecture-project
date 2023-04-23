@@ -12,7 +12,7 @@ HOST = 'localhost'
 #appel à l4API pour savoir sur quel port est chaque routeur
 tn = telnetlib.Telnet(HOST,5002)#PE1.console)
 
-def conf_P ():    
+def initial(router_name, conf_file):
 	#tn.read_until(b"P1>")
 	#tn.write(b"enable\n")
 	#tn.write(enablepassword.encode('ascii') + b"\n")
@@ -31,7 +31,7 @@ def conf_P ():
 	tn.write(b"no sh\r\n")
 	tn.write(b"end\r\n")
 	
-def conf_ospf():
+def ospf(router_name, conf_file):
 	tn.write(b"conf t\r\n")
 	tn.write(b"int gigabitEthernet 1/0\r\n")
 	tn.write(b"ip ospf 1 area 0 secondaries none\r\n")
@@ -46,7 +46,7 @@ def conf_ospf():
 	tn.write(b"end\r\n")
 	
 
-def conf_ldp():
+def ldp(router_name, conf_file):
 	tn.write(b"conf t\r\n")
 	tn.write(b"mpls ip\r\n")
 	tn.write(b"mpls label protocol ldp\r\n")
@@ -55,15 +55,4 @@ def conf_ldp():
 	tn.write(b"int gigabitEthernet 2/0\r\n")
 	tn.write(b"mpls ip\r\n")
 	tn.write(b"end\r\n")
-	
 
-
-def main():
-	conf_P()
-	conf_ospf()
-	conf_ldp()
-
-
-
-if __name__ == "__main__":
-	main()
