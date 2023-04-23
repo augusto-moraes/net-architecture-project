@@ -18,7 +18,8 @@ def create_lab(project_name): #create lab and GNS3 project
 	print(lab.project_id)
 	return lab
 
-def create_router(lab, routers): #Create router (CE, PE, P)
+
+def create_router(lab, config_file): #Create router (CE, PE, P)
 
 	#server.create_template("test", "local", )
 	#for template in server.get_templates():
@@ -27,17 +28,44 @@ def create_router(lab, routers): #Create router (CE, PE, P)
 	#server.get_template_by_name("c7200")
 	#server.get_version()
 
-	router_list = []
-	for r in routers:
+	router_node_list = []
+	router_names = get_router_list(config_file)
+
+	#Creates routers in GNS3 & adds the nodes to a list
+	for r in router_names:
 		router = Node(
 			project_id=lab.project_id,
 			connector=server,
 			name=r,
 			template="c7200")
 		router.create()
-		router_list.append(router)
-	print(len(router_list))
-	return router_list
+		router_node_list.append(router)
+	print(len(router_node_list))
+	return router_node_list
+
+
+def create_matrix(router_names):
+	matrix = [[0,1,1,0,0,0,0,0,1,1,0,0,0,0,0],
+			  [1,0,0,1,0,0,0,0,1,0,1,0,0,0,0],
+			  [1,0,0,0,1,0,0,0,0,1,0,0,1,0,0],
+			  [0,1,0,0,0,1,0,0,0,0,1,0,0,0,0],
+			  [0,0,1,0,0,0,1,0,0,0,0,0,1,0,0],
+			  [0,0,0,1,0,0,0,1,0,0,1,0,0,1,0],
+			  [0,0,0,0,1,0,0,1,0,0,0,0,1,0,1],
+			  [0,0,0,0,0,1,1,0,0,0,0,0,0,1,1],
+			  [1,1,0,0,0,0,0,0,0,1,1,1,0,0,0],
+			  [1,0,1,0,0,0,0,0,1,0,0,1,1,0,0],
+			  [0,1,0,1,0,1,0,0,1,0,0,1,0,1,0],
+			  [0,0,0,0,0,0,0,0,1,1,1,0,1,1,1],
+			  [0,0,1,0,1,0,1,0,0,1,0,1,0,0,1],
+			  [0,0,0,0,0,1,0,1,0,0,1,1,0,0,1],
+			  [0,0,0,0,0,0,1,1,0,0,0,1,1,1,0]]
+
+	matrix_auto_gen = []
+	#JE SAIS PAS COMMENT FAIRE ALED
+
+
+	return matrix
 
 def create_link(lab, matrix, routers, json_file): #Create links between routers
 
@@ -87,23 +115,14 @@ def create_link(lab, matrix, routers, json_file): #Create links between routers
 						counter -= 1
 
 def create_link_v2(lab, router_list, json_file):
-	matrix = [[0,1,1,0,0,0,0,0,1,1,0,0,0,0,0],
-			  [1,0,0,1,0,0,0,0,1,0,1,0,0,0,0],
-			  [1,0,0,0,1,0,0,0,0,1,0,0,1,0,0],
-			  [0,1,0,0,0,1,0,0,0,0,1,0,0,0,0],
-			  [0,0,1,0,0,0,1,0,0,0,0,0,1,0,0],
-			  [0,0,0,1,0,0,0,1,0,0,1,0,0,1,0],
-			  [0,0,0,0,1,0,0,1,0,0,0,0,1,0,1],
-			  [0,0,0,0,0,1,1,0,0,0,0,0,0,1,1],
-			  [1,1,0,0,0,0,0,0,0,1,1,1,0,0,0],
-			  [1,0,1,0,0,0,0,0,1,0,0,1,1,0,0],
-			  [0,1,0,1,0,1,0,0,1,0,0,1,0,1,0],
-			  [0,0,0,0,0,0,0,0,1,1,1,0,1,1,1],
-			  [0,0,1,0,1,0,1,0,0,1,0,1,0,0,1],
-			  [0,0,0,0,0,1,0,1,0,0,1,1,0,0,1],
-			  [0,0,0,0,0,0,1,1,0,0,0,1,1,1,0]]
-	routers = ["PE1","PE2","PE3","PE4","PE5","PE6","PE7","PE8","P1","P2","P3","P4","P5","P6","P7"]
+
+	matrix = create_matrix()
+	routers = []
 	router_interfaces = {}
+
+	#
+	for router in router_list:
+		routers.append(router.name)
 
 	for routerPE in json_file["PE_routers"]:
 		router_interfaces[routerPE["hostname"]] = routerPE["availableInt"]
@@ -139,23 +158,31 @@ def get_node_id(router_list):
 def get_node_console(router_list):
 	return
 
+def get_router_list(config_file):
+	router_names = []
+	config_file = json.load(open(config_file))
+
+	#Get all routers hostnames into a list
+	for PE in config_file["PE_routers"]:
+		router_names.append(PE["hostname"])
+	for P in config_file["P_routers"]:
+		router_names.append(P["hostname"])
+	for CE in config_file["CE_routers"]:
+		router_names.append(CE["hostname"])
+	print(router_names)
+	return router_names
+
 def main():
 	router_constellation = ["PE1","PE2","PE3","PE4","PE5","PE6","PE7","PE8","P1","P2","P3","P4","P5","P6","P7"]
-
-	matrix = [[0, 0, 0, 0, "PE1",0 ,0 ,0 ,0],
-				[0, "PE2", 0, "P1", 0, "P2", 0, "PE3", 0],
-				["PE4", 0, "P3", 0, "P4", 0, "P5", 0, "PE5"],
-				[0, "PE6", 0, "P6", 0, "P7", 0, "PE7", 0],
-				[0, 0, 0, 0, "PE8", 0, 0, 0, 0]]
 
 	test_file = "test_config.json"
 	file = json.load(open(test_file))
 
-	lab = create_lab("test_lab44")
-	router_list = create_router(lab, router_constellation)
+	lab = create_lab("test_lab45")
+	router_node_list = create_router(lab, test_file)
 	#create_link(lab, matrix, router_list, file)
 
-	create_link_v2(lab, router_list, file)
+	create_link_v2(lab, router_node_list, file)
 
 if __name__ == "__main__":
 	main()

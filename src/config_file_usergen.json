@@ -1,0 +1,1 @@
+"{\"project\": [{\"py/set\": [\"yes\"]}, {\"py/set\": [\"yes\"]}], \"OSPF_config\": [{\"OSPF_core_area\": \"3\", \"OSPF_client_area\": \"3\"}], \"BGP_config\": [{\"BGP_core_AS\": \"33\", \"BGP_clientA_AS\": \"3\", \"BGP_clientB_AS\": \"3\"}], \"VRF_config\": [{\"VRF_name\": \"3\", \"RD\": \"3\", \"RT_export\": \"3\", \"RT_import\": \"3\"}]}"
