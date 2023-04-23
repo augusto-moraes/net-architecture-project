@@ -1,16 +1,15 @@
 [
-
   {
     "hostname": "PE1",
     "loopbackAddress": "1.1.1.1",
     "ipAddressG1": "192.168.0.2",
     "ipAddressG2": "192.168.0.4",
     "ipAddressG3": "192.168.0.6",
-    "netmask" : "255.255.255.252",
+    "netmask": "255.255.255.252",
     "processId": "1",
     "areaNumber": "0",
     "vrfName": "RED",
-    "rd" : "4:4",
+    "rd": "4:4",
     "RTexport": "4:4",
     "RTimport": "4:4"
   },

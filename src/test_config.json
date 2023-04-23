@@ -12,7 +12,6 @@
       "OSPFprocessId": "1",
       "OSPFareaCore": "0"
     }
-
   ],
   "BGP_config": [
     {
@@ -25,7 +24,7 @@
   "VRF_config": [
     {
       "vrfName": "RED",
-      "RD" : "4:4",
+      "RD": "4:4",
       "RTexport": "4:4",
       "RTimport": "4:4"
     }
@@ -33,185 +32,185 @@
   "CE_routers": [
     {
       "hostname": "CE1",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
-      "int3" : "g3/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
+      "int3": "g3/0",
       "loopback0": "6.6.6.6",
       "IPg1/0": "192.168.100.2",
-      "netmask" : "255.255.255.0"
+      "netmask": "255.255.255.0"
     },
     {
       "hostname": "CE2",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
-      "int3" : "g3/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
+      "int3": "g3/0",
       "loopback0": "",
       "IPg1/0": "172.16.0.1",
-      "netmask" : "255.255.0.0"
+      "netmask": "255.255.0.0"
     }
   ],
   "PE_routers": [
     {
       "hostname": "PE1",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "1.1.1.1",
       "IPg1/0": "192.168.0.1",
       "IPg2/0": "172.16.0.2",
-      "netmaskSubClient" : "255.255.0.0",
-      "netmaskSubCore" : "255.255.255.252"
+      "netmaskSubClient": "255.255.0.0",
+      "netmaskSubCore": "255.255.255.252"
     },
     {
       "hostname": "PE2",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "4.4.4.4",
       "IPg1/0": "192.168.0.10",
       "IPg2/0": "172.16.0.2",
-      "netmaskSubClient" : "255.255.0.0",
-      "netmaskSubCore" : "255.255.255.252"
+      "netmaskSubClient": "255.255.0.0",
+      "netmaskSubCore": "255.255.255.252"
     },
     {
       "hostname": "PE3",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "4.4.4.4",
       "IPg1/0": "192.168.0.10",
       "IPg2/0": "172.16.0.2",
-      "netmaskSubClient" : "255.255.0.0",
-      "netmaskSubCore" : "255.255.255.252"
+      "netmaskSubClient": "255.255.0.0",
+      "netmaskSubCore": "255.255.255.252"
     },
     {
       "hostname": "PE4",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "4.4.4.4",
       "IPg1/0": "192.168.0.10",
       "IPg2/0": "172.16.0.2",
-      "netmaskSubClient" : "255.255.0.0",
-      "netmaskSubCore" : "255.255.255.252"
+      "netmaskSubClient": "255.255.0.0",
+      "netmaskSubCore": "255.255.255.252"
     },
     {
       "hostname": "PE5",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "4.4.4.4",
       "IPg1/0": "192.168.0.10",
       "IPg2/0": "172.16.0.2",
-      "netmaskSubClient" : "255.255.0.0",
-      "netmaskSubCore" : "255.255.255.252"
+      "netmaskSubClient": "255.255.0.0",
+      "netmaskSubCore": "255.255.255.252"
     },
     {
       "hostname": "PE6",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "4.4.4.4",
       "IPg1/0": "192.168.0.10",
       "IPg2/0": "172.16.0.2",
-      "netmaskSubClient" : "255.255.0.0",
-      "netmaskSubCore" : "255.255.255.252"
+      "netmaskSubClient": "255.255.0.0",
+      "netmaskSubCore": "255.255.255.252"
     },
     {
       "hostname": "PE7",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "4.4.4.4",
       "IPg1/0": "192.168.0.10",
       "IPg2/0": "172.16.0.2",
-      "netmaskSubClient" : "255.255.0.0",
-      "netmaskSubCore" : "255.255.255.252"
+      "netmaskSubClient": "255.255.0.0",
+      "netmaskSubCore": "255.255.255.252"
     },
     {
       "hostname": "PE8",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "4.4.4.4",
       "IPg1/0": "192.168.0.10",
       "IPg2/0": "172.16.0.2",
-      "netmaskSubClient" : "255.255.0.0",
-      "netmaskSubCore" : "255.255.255.252"
+      "netmaskSubClient": "255.255.0.0",
+      "netmaskSubCore": "255.255.255.252"
     }
   ],
   "P_routers": [
     {
       "hostname": "P1",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "2.2.2.2",
       "IPg1/0": "192.168.0.2",
       "IPg2/0": "192.168.0.5",
-      "netmaskSubCore" : "255.255.255.252"
+      "netmaskSubCore": "255.255.255.252"
     },
     {
       "hostname": "P2",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "3.3.3.3",
       "IPg1/0": "192.168.0.6",
       "IPg2/0": "192.168.0.9",
-      "netmask" : "255.255.255.252"
+      "netmask": "255.255.255.252"
     },
     {
       "hostname": "P3",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "3.3.3.3",
       "IPg1/0": "192.168.0.6",
       "IPg2/0": "192.168.0.9",
-      "netmask" : "255.255.255.252"
+      "netmask": "255.255.255.252"
     },
     {
       "hostname": "P4",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "3.3.3.3",
       "IPg1/0": "192.168.0.6",
       "IPg2/0": "192.168.0.9",
-      "netmask" : "255.255.255.252"
+      "netmask": "255.255.255.252"
     },
     {
       "hostname": "P5",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "3.3.3.3",
       "IPg1/0": "192.168.0.6",
       "IPg2/0": "192.168.0.9",
-      "netmask" : "255.255.255.252"
+      "netmask": "255.255.255.252"
     },
     {
       "hostname": "P6",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "3.3.3.3",
       "IPg1/0": "192.168.0.6",
       "IPg2/0": "192.168.0.9",
-      "netmask" : "255.255.255.252"
+      "netmask": "255.255.255.252"
     },
     {
       "hostname": "P7",
-      "availableInt" : 6,
-      "int1" : "g1/0",
-      "int2" : "g2/0",
+      "availableInt": 6,
+      "int1": "g1/0",
+      "int2": "g2/0",
       "loopback0": "3.3.3.3",
       "IPg1/0": "192.168.0.6",
       "IPg2/0": "192.168.0.9",
-      "netmask" : "255.255.255.252"
+      "netmask": "255.255.255.252"
     }
   ]
 }

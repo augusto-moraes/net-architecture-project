@@ -1,9 +1,9 @@
 import json
+
 import jsonpickle
-import pickle
+
 
 def user_requirements():
-
     project_name = input("Project name?")
     description = input("Description ?")
     CE_routers = input("How Many CE routers?")
@@ -33,12 +33,12 @@ def user_requirements():
         encoded_params = jsonpickle.encode(params)
         decoded = jsonpickle.decode(encoded_params)
         json.dump(decoded, config_file)
-        #pickle.dump(params, config_file, protocol=pickle.HIGHEST_PROTOCOL)
-
+        # pickle.dump(params, config_file, protocol=pickle.HIGHEST_PROTOCOL)
 
 
 def main():
     user_requirements()
+
 
 if __name__ == "__main__":
     main()
