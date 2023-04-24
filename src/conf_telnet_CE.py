@@ -1,40 +1,50 @@
 import telnetlib
-
-# from gns3fy import Gns3Connector
-
-# server = Gns3Connector(url="http://localhost:3080", user="admin", cred="1234")
+import GNS3_Server_API as api
 
 
-HOST = 'localhost'
-# user = input("Enter your Username: ")
-# password = getpass.getpass()
-# enablepassword = getpass.getpass()
+def initial(node, conf_file):
 
-# appel à l4API pour savoir sur quel port est chaque routeur
-tn = telnetlib.Telnet(HOST, 5007)  # PE1.console)
+    HOST = '192.168.33.128'
+    PORT = api.get_node_console()
+    # appel à l'API pour savoir sur quel port est chaque routeur
+    tn = telnetlib.Telnet(HOST, PORT)  # PE1.console)
 
-
-def initial(router_name, conf_file):
-    # tn.read_until(b"P1>")
-    # tn.write(b"enable\n")
-    # tn.write(enablepassword.encode('ascii') + b"\n")
+    name = node.name
     tn.write(b"conf t\r\n")
-    tn.write(b"int gigabitEthernet 1/0\r\n")
-    tn.write(b"ip add 192.168.201.2 255.255.255.0\r\n")
-    tn.write(b"no sh\r\n")
-    tn.write(b"exit\r\n")
-    tn.write(b"int Loopback0\r\n")
-    tn.write(b"ip add 5.5.5.5 255.255.255.255\r\n")
-    tn.write(b"no sh\r\n")
-    tn.write(b"end\r\n")
+    # Changes the IP for each int of the node
+    for node in conf_file["CE_routers"]:
+        if node["hostname"] == name:
+            nb_of_interfaces = node["availableInt"]
+            for i in range(len(nb_of_interfaces)):
+                tn.write(b"int" + bytes(node["int" + str(i)]) + b"\r\n")
+                tn.write(b"ip add" + bytes(node["IP" + node["int" + str(i)]]) + bytes(node["netmask" + str(i)]) + b"\r\n")
+                tn.write(b"no sh\r\n")
+                tn.write(b"exit\r\n")
+
+            tn.write(b"int Loopback0\r\n")
+            tn.write(b"ip add" + bytes(node["loopback0"]) + b"255.255.255.255\r\n")
+            tn.write(b"no sh\r\n")
+            tn.write(b"exit\r\n")
+        tn.write(b"end\r\n")
+        break
 
 
-def ebgp(router_name, conf_file):
+def ebgp(node, conf_file):
+
+    HOST = '192.168.33.128'
+    PORT = api.get_node_console()
+    # appel à l'API pour savoir sur quel port est chaque routeur
+    tn = telnetlib.Telnet(HOST, PORT)  # PE1.console)
+
+    name = node.name
     tn.write(b"conf t\r\n")
-    tn.write(b"int gigabitEthernet 1/0\r\n")
-    tn.write(b"router bgp 200\r\n")
-    tn.write(b"neighbor 192.168.201.1 remote-as 100\r\n")
-    tn.write(b"address-family ipv4\r\n")
-    tn.write(b"network 5.5.5.5 mask 255.255.255.255\r\n")
-    tn.write(b"neighbor 192.168.201.1 activate\r\n")
-    tn.write(b"end\r\n")
+    # Changes the IP for each int of the node
+    for node in conf_file["CE_routers"]:
+        if node["hostname"] == name:
+            tn.write(b"int" + node["int1"] + b"\r\n")       # g1/0 ARBITRAIRE
+            tn.write(b"router bgp 200\r\n")
+            tn.write(b"neighbor 192.168.201.1 remote-as 100\r\n")
+            tn.write(b"address-family ipv4\r\n")
+            tn.write(b"network" + node["loopback0"] + b"mask 255.255.255.255\r\n")
+            tn.write(b"neighbor 192.168.201.1 activate\r\n")
+            tn.write(b"end\r\n")

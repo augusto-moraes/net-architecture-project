@@ -4,7 +4,7 @@ from gns3fy import Gns3Connector, Project, Link, Node
 
 # Script to communicate with the GNS3 server, create labs, routers, links
 
-server = Gns3Connector(url="http://localhost:3080", user="admin", cred="1234")  # Connection to GNS3 server
+server = Gns3Connector(url="http://192.168.33.128:3080", user="admin", cred="1234")  # Connection to GNS3 server
 
 
 def create_lab(project_name):  # create lab and GNS3 project
@@ -45,7 +45,7 @@ def create_router(lab, config_file):  # Create router (CE, PE, P)
     return nodes
 
 
-def create_matrix(router_names):
+def create_matrix():
     matrix = [[0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
               [1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0],
               [1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
@@ -177,7 +177,7 @@ def get_router_list(config_file):
         router_names.append(PE["hostname"])
     for P in config_file["P_routers"]:
         router_names.append(P["hostname"])
-    for CE in config_file["CE_routers"]:
-        router_names.append(CE["hostname"])
+    #for CE in config_file["CE_routers"]:
+    #    router_names.append(CE["hostname"])
     print(router_names)
     return router_names

@@ -1,60 +1,77 @@
 import telnetlib
-
-# from gns3fy import Gns3Connector
-
-# server = Gns3Connector(url="http://localhost:3080", user="admin", cred="1234")
+import GNS3_Server_API as api
 
 
-HOST = 'localhost'
-# user = input("Enter your Username: ")
-# password = getpass.getpass()
-# enablepassword = getpass.getpass()
+def initial(node, conf_file):
 
-# appel à l4API pour savoir sur quel port est chaque routeur
-tn = telnetlib.Telnet(HOST, 5002)  # PE1.console)
+    HOST = '192.168.33.128'
+    PORT = api.get_node_console()
+    # appel à l'API pour savoir sur quel port est chaque routeur
+    tn = telnetlib.Telnet(HOST, PORT)  # PE1.console)
 
-
-def initial(router_name, conf_file):
-    # tn.read_until(b"P1>")
-    # tn.write(b"enable\n")
-    # tn.write(enablepassword.encode('ascii') + b"\n")
+    name = node.name
     tn.write(b"conf t\r\n")
-    tn.write(b"int gigabitEthernet 1/0\r\n")
-    tn.write(b"ip add 192.168.1.2 255.255.255.0\r\n")
-    tn.write(b"no sh\r\n")
-    tn.write(b"exit\r\n")
+    # Changes the IP for each int of the node
+    for node in conf_file["P_routers"]:
+        if node["hostname"] == name:
+            nb_of_interfaces = node["availableInt"]
+            for i in range(len(nb_of_interfaces)):
+                tn.write(b"int" + bytes(node["int" + str(i)]) + b"\r\n")
+                tn.write(b"ip add" + bytes(node["IP" + node["int" + str(i)]]) + bytes(node["netmask" + str(i)]) + b"\r\n")
+                tn.write(b"no sh\r\n")
+                tn.write(b"exit\r\n")
+
+            tn.write(b"int Loopback0\r\n")
+            tn.write(b"ip add" + bytes(node["loopback0"]) + b"255.255.255.255\r\n")
+            tn.write(b"no sh\r\n")
+            tn.write(b"exit\r\n")
+        tn.write(b"end\r\n")
+        break
+
+
+def ospf(node, conf_file):
+
+
+    HOST = '192.168.33.128'
+    PORT = api.get_node_console()
+    # appel à l'API pour savoir sur quel port est chaque routeur
+    tn = telnetlib.Telnet(HOST, PORT)  # PE1.console)
+
+    name = node.name
     tn.write(b"conf t\r\n")
-    tn.write(b"int gigabitEthernet 2/0\r\n")
-    tn.write(b"ip add 192.168.2.1 255.255.255.0\r\n")
-    tn.write(b"no sh\r\n")
-    tn.write(b"exit\r\n")
-    tn.write(b"int Loopback0\r\n")
-    tn.write(b"ip add 2.2.2.2 255.255.255.255\r\n")
-    tn.write(b"no sh\r\n")
-    tn.write(b"end\r\n")
+    for node in conf_file["P_routers"]:
+        if node["hostname"] == name:
+            nb_of_interfaces = node["availableInt"]
+            for i in range(len(nb_of_interfaces)):
+                tn.write(b"int" + bytes(node["int" + str(i)]) + b"\r\n")
+                tn.write(b"ip ospf" + bytes(conf_file["OSPF_config"]["OSPFprocessId"]) + b"area" + bytes(conf_file["OSPF_config"]["OSPFareaCore"]) + b"secondaries none\r\n")
+                tn.write(b"router ospf" + bytes(conf_file["OSPF_config"]["OSPFprocessId"]) + b"\r\n")
+                tn.write(b"mpls ldp autoconfig\r\n")
+                tn.write(b"exit\r\n")
+                tn.write(b"int Loopback0\r\n")
+                tn.write(b"ip ospf" + bytes(conf_file["OSPF_config"]["OSPFprocessId"]) + b"area" + bytes(conf_file["OSPF_config"]["OSPFareaCore"]) + b"secondaries none\r\n")
+                tn.write(b"exit\r\n")
+        tn.write(b"end\r\n")
+        break
 
 
-def ospf(router_name, conf_file):
-    tn.write(b"conf t\r\n")
-    tn.write(b"int gigabitEthernet 1/0\r\n")
-    tn.write(b"ip ospf 1 area 0 secondaries none\r\n")
-    tn.write(b"exit\r\n")
-    tn.write(b"int gigabitEthernet 2/0\r\n")
-    tn.write(b"ip ospf 1 area 0 secondaries none\r\n")
-    tn.write(b"exit\r\n")
-    tn.write(b"int Loopback0\r\n")
-    tn.write(b"ip ospf 1 area 0 secondaries none\r\n")
-    tn.write(b"router ospf 1\r\n")
-    tn.write(b"mpls ldp autoconfig\r\n")
-    tn.write(b"end\r\n")
+def ldp(node, conf_file):
 
+    HOST = '192.168.33.128'
+    PORT = api.get_node_console()
+    # appel à l'API pour savoir sur quel port est chaque routeur
+    tn = telnetlib.Telnet(HOST, PORT)  # PE1.console)
 
-def ldp(router_name, conf_file):
+    name = node.name
     tn.write(b"conf t\r\n")
     tn.write(b"mpls ip\r\n")
     tn.write(b"mpls label protocol ldp\r\n")
-    tn.write(b"int gigabitEthernet 1/0\r\n")
-    tn.write(b"mpls ip\r\n")
-    tn.write(b"int gigabitEthernet 2/0\r\n")
-    tn.write(b"mpls ip\r\n")
-    tn.write(b"end\r\n")
+    for node in conf_file["P_routers"]:
+        if node["hostname"] == name:
+            nb_of_interfaces = node["availableInt"]
+            for i in range(len(nb_of_interfaces)):
+                tn.write(b"int" + bytes(node["int" + str(i)]) + b"\r\n")
+                tn.write(b"mpls ip\r\n")
+                tn.write(b"exit\r\n")
+        tn.write(b"end\r\n")
+        break
