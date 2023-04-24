@@ -16,7 +16,7 @@ def create_lab(project_name):  # create lab and GNS3 project
         lab.get()
         lab.open()  # Open existing lab if already exists
 
-    print(lab.project_id)
+    print( "Project id:", lab.project_id)
     return lab
 
 
@@ -41,7 +41,7 @@ def create_router(lab, config_file):  # Create router (CE, PE, P)
             template="c7200")
         router.create()
         nodes.append(router)
-    print(len(nodes))
+    print("Number of nodes:", len(nodes))
     return nodes
 
 
@@ -137,7 +137,7 @@ def create_link_v2(lab, router_list, json_file):
     for i in range(len(matrix)):
         for j in range(i, len(matrix[i])):
             if matrix[i][j] == 1:
-                print("liens :", routers[i], "->", routers[j])
+                print("links :", routers[i], "->", routers[j])
                 links = [
                     dict(node_id=router_list[i].node_id,
                          adapter_number=router_interfaces[routers[i]], port_number=0),
@@ -179,5 +179,5 @@ def get_router_list(config_file):
         router_names.append(P["hostname"])
     #for CE in config_file["CE_routers"]:
     #    router_names.append(CE["hostname"])
-    print(router_names)
+    print("Routers:", router_names)
     return router_names
