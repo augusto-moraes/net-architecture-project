@@ -5,34 +5,37 @@ import GNS3_Server_API as api
 def initial(node, conf_file):
 
     HOST = '192.168.33.128'
-    PORT = api.get_node_console()
+    PORT = api.get_node_console(node)
     # appel à l'API pour savoir sur quel port est chaque routeur
     tn = telnetlib.Telnet(HOST, PORT)  # PE1.console)
 
     name = node.name
+    tn.read_until(name.encode('utf-8') + b"#")
+    print("finished reading")
     tn.write(b"conf t\r\n")
     # Changes the IP for each int of the node
     for node in conf_file["PE_routers"]:
         if node["hostname"] == name:
             nb_of_interfaces = node["availableInt"]
-            for i in range(len(nb_of_interfaces)):
-                tn.write(b"int" + bytes(node["int" + str(i)]) + b"\r\n")
-                tn.write(b"ip add" + bytes(node["IP" + node["int" + str(i)]]) + bytes(node["netmask" + str(i)]) + b"\r\n")
+            for i in range(1, nb_of_interfaces):
+                tn.write(b"int " + node["int" + str(i)].encode('utf-8') + b"\r\n")
+                tn.write(b"ip add " + node["IP" + node["int" + str(i)]].encode('utf-8') + b" " + node["netmaskCore"].encode('utf-8') + b"\r\n") #ADD when netmaskClient
                 tn.write(b"no sh\r\n")
                 tn.write(b"exit\r\n")
 
             tn.write(b"int Loopback0\r\n")
-            tn.write(b"ip add" + bytes(node["loopback0"]) + b"255.255.255.255\r\n")
+            tn.write(b"ip add " + node["loopback0"].encode('utf-8') + b" 255.255.255.255\r\n")
             tn.write(b"no sh\r\n")
             tn.write(b"exit\r\n")
         tn.write(b"end\r\n")
+        # WRITE MEM
         break
 
 
 def ospf(node, conf_file):
 
     HOST = '192.168.33.128'
-    PORT = api.get_node_console()
+    PORT = api.get_node_console(node)
     # appel à l'API pour savoir sur quel port est chaque routeur
     tn = telnetlib.Telnet(HOST, PORT)  # PE1.console)
 
@@ -41,14 +44,14 @@ def ospf(node, conf_file):
     for node in conf_file["PE_routers"]:
         if node["hostname"] == name:
             nb_of_interfaces = node["availableInt"]
-            for i in range(len(nb_of_interfaces)):
-                tn.write(b"int" + bytes(node["int" + str(i)]) + b"\r\n")
-                tn.write(b"ip ospf" + bytes(conf_file["OSPF_config"]["OSPFprocessId"]) + b"area" + bytes(conf_file["OSPF_config"]["OSPFareaCore"]) + b"secondaries none\r\n")
-                tn.write(b"router ospf" + bytes(conf_file["OSPF_config"]["OSPFprocessId"]) + b"\r\n")
+            for i in range(1, nb_of_interfaces):
+                tn.write(b"int " + node["int" + str(i)].encode('utf-8') + b"\r\n")
+                tn.write(b"ip osp f" + conf_file["OSPF_config"][0]["OSPFprocessId"].encode('utf-8') + b" area " + conf_file["OSPF_config"][0]["OSPFareaCore"].encode('utf-8') + b" secondaries none\r\n")
+                tn.write(b"router ospf " + conf_file["OSPF_config"][0]["OSPFprocessId"].encode('utf-8') + b"\r\n")
                 tn.write(b"mpls ldp autoconfig\r\n")
                 tn.write(b"exit\r\n")
                 tn.write(b"int Loopback0\r\n")
-                tn.write(b"ip ospf" + bytes(conf_file["OSPF_config"]["OSPFprocessId"]) + b"area" + bytes(conf_file["OSPF_config"]["OSPFareaCore"]) + b"secondaries none\r\n")
+                tn.write(b"ip ospf " + conf_file["OSPF_config"][0]["OSPFprocessId"].encode('utf-8') + b" area " + conf_file["OSPF_config"][0]["OSPFareaCore"].encode('utf-8') + b" secondaries none\r\n")
                 tn.write(b"exit\r\n")
         tn.write(b"end\r\n")
         break
@@ -57,7 +60,7 @@ def ospf(node, conf_file):
 def ldp(node, conf_file):
 
     HOST = '192.168.33.128'
-    PORT = api.get_node_console()
+    PORT = api.get_node_console(node)
     # appel à l'API pour savoir sur quel port est chaque routeur
     tn = telnetlib.Telnet(HOST, PORT)  # PE1.console)
 
@@ -68,8 +71,8 @@ def ldp(node, conf_file):
     for node in conf_file["PE_routers"]:
         if node["hostname"] == name:
             nb_of_interfaces = node["availableInt"]
-            for i in range(len(nb_of_interfaces)):
-                tn.write(b"int" + bytes(node["int" + str(i)]) + b"\r\n")
+            for i in range(1, nb_of_interfaces):
+                tn.write(b"int " + node["int" + str(i)].encode('utf-8') + b"\r\n")
                 tn.write(b"mpls ip\r\n")
                 tn.write(b"exit\r\n")
         tn.write(b"end\r\n")
@@ -79,7 +82,7 @@ def ldp(node, conf_file):
 def ibgp(node, conf_file):
 
     HOST = '192.168.33.128'
-    PORT = api.get_node_console()
+    PORT = api.get_node_console(node)
     # appel à l'API pour savoir sur quel port est chaque routeur
     tn = telnetlib.Telnet(HOST, PORT)  # PE1.console)
 
@@ -87,19 +90,19 @@ def ibgp(node, conf_file):
     tn.write(b"conf t\r\n")
     for node in conf_file["PE_routers"]:
         if node["hostname"] == name:
-            tn.write(b"router bgp" + bytes(conf_file["BGP_config"]["BGPCoreAS"]) + b"\r\n")
+            tn.write(b"router bgp " + conf_file["BGP_config"][0]["BGPCoreAS"].encode('utf-8') + b"\r\n")
             for router in conf_file["PE_routers"]:
-                tn.write(b"neighbor" + bytes(router["loopback0"]) + b"remote-as" + bytes(conf_file["BGP_config"]["BGPCoreAS"]) + b"\r\n")
-                tn.write(b"neighbor" + bytes(router["loopback0"]) + b"update-source" + bytes(node["loopback0"]) + b"\r\n")
+                tn.write(b"neighbor " + router["loopback0"].encode('utf-8') + b" remote-as " + conf_file["BGP_config"][0]["BGPCoreAS"].encode('utf-8') + b"\r\n")
+                tn.write(b"neighbor " + router["loopback0"].encode('utf-8') + b" update-source " + node["loopback0"].encode('utf-8') + b"\r\n")
             tn.write(b"address-family ipv4 unicast\r\n")
             for router in conf_file["PE_routers"]:
-                tn.write(b"neighbor" + bytes(router["loopback0"]) + b"activate\r\n")     # NEEDS CHECK
-                tn.write(b"neighbor" + bytes(router["loopback0"]) + b"next-hop-self\r\n")# NEEDS CHECK
+                tn.write(b"neighbor " + router["loopback0"].encode('utf-8') + b" activate\r\n")     # NEEDS CHECK
+                tn.write(b"neighbor " + router["loopback0"].encode('utf-8') + b" next-hop-self\r\n")# NEEDS CHECK
                 tn.write(b"exit\r\n")
             tn.write(b"address-family vpnv4 unicast\r\n")
             for router in conf_file["PE_routers"]:
-                tn.write(b"neighbor" + bytes(router["loopback0"]) + b"activate\r\n")                # NEEDS CHECK
-                tn.write(b"neighbor" + bytes(router["loopback0"]) + b"send-community extended\r\n") # NEEDS CHECK
+                tn.write(b"neighbor " + router["loopback0"].encode('utf-8') + b" activate\r\n")                # NEEDS CHECK
+                tn.write(b"neighbor " + router["loopback0"].encode('utf-8') + b" send-community extended\r\n") # NEEDS CHECK
         tn.write(b"end\r\n")
         break
 
@@ -107,7 +110,7 @@ def ibgp(node, conf_file):
 def vrf(node, conf_file):
 
     HOST = '192.168.33.128'
-    PORT = api.get_node_console()
+    PORT = api.get_node_console(node)
     # appel à l'API pour savoir sur quel port est chaque routeur
     tn = telnetlib.Telnet(HOST, PORT)  # PE1.console)
 
@@ -116,10 +119,10 @@ def vrf(node, conf_file):
     for node in conf_file["PE_routers"]:
         if node["hostname"] == name:
             tn.write(b"conf t\r\n")
-            tn.write(b"ip vrf" + conf_file["VRF_config"]["vrfName"] + b"\r\n")
-            tn.write(b"rd" + conf_file["VRF_config"]["RD"] + b"\r\n")
-            tn.write(b"route-target export" + conf_file["VRF_config"]["RTexport"] + b"\r\n")
-            tn.write(b"route-target import" + conf_file["VRF_config"]["RTimport"] + b"\r\n")
+            tn.write(b"ip vrf " + conf_file["VRF_config"][0]["vrfName"].encode('utf-8') + b"\r\n")
+            tn.write(b"rd " + conf_file["VRF_config"][0]["RD"].encode('utf-8') + b"\r\n")
+            tn.write(b"route-target export " + conf_file["VRF_config"][0]["RTexport"].encode('utf-8') + b"\r\n")
+            tn.write(b"route-target import " + conf_file["VRF_config"][0]["RTimport"].encode('utf-8') + b"\r\n")
             tn.write(b"exit\r\n")
             #tn.write(b"ip vrf RED2\r\n")
             #tn.write(b"rd 5:5\r\n")

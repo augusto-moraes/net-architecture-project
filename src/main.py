@@ -14,30 +14,33 @@ def main():
     test_file = "test_config.json"
     conf_file = json.load(open(test_file))
     print("Creating lab")
-    lab = api.create_lab("test_lab3")  # Lab object
+    lab = api.create_lab("test_lab")  # Lab object
     print("Creating nodes")
     nodes = api.create_router(lab, conf_file)  # List of nodes (objects)
     print("Creating links")
     api.create_link_v2(lab, nodes, conf_file)  # Creates links
-    time.sleep(5)
-    lab.start_nodes
     print("Starting nodes")
-    time.sleep(100)
+    lab.start_nodes()
+    #time.sleep(100)   #REPLACE BY WAIT FOR HOSTNAME PROMPT
     print("Configuring nodes")
     for node in nodes:
-        if re.match("PE\s[0-9]", node.name):
+        if re.match("PE[0-9]", node.name):
             print("Configuring PEs")
             confPE.initial(node, conf_file)
+            time.sleep(5)
             confPE.ospf(node, conf_file)
+            time.sleep(5)
             confPE.ldp(node, conf_file)
+            time.sleep(5)
             confPE.ibgp(node, conf_file)
+            time.sleep(5)
             confPE.vrf(node, conf_file)
-        if re.match("P\s[0-9]", node.name):
+        if re.match("P[0-9]", node.name):
             print("Configuring Ps")
             confP.initial(node, conf_file)
             confP.ospf(node, conf_file)
             confP.ldp(node, conf_file)
-        if re.match("CE\s[0-9]", node.name):
+        if re.match("CE[0-9]", node.name):
             print("Configuring CEs")
             confCE.initial(node, conf_file)
             confCE.ebgp(node, conf_file)
