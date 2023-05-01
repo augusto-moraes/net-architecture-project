@@ -52,23 +52,25 @@
     {
       "hostname": "PE1",
       "availableInt" : 5,
+      "vrfInt" : ["g1/0"],
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
       "int4" : "g4/0",
       "int5" : "g5/0",
       "loopback0": "1.1.1.1",
-      "IPg1/0": "10.0.0.1",
+      "IPg1/0": "192.168.0.2",
       "IPg2/0": "10.0.0.5",
       "IPg3/0": "10.0.0.9",
       "IPg4/0": "10.0.0.13",
-      "IPg5/0": "192.168.0.2", 
+      "IPg5/0": "10.0.0.1",
       "netmaskClient" : "255.255.255.0",
       "netmaskCore" : "255.255.255.252"
     },
     {
       "hostname": "PE2",
       "availableInt" : 4,
+      "vrfInt" : [],
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -83,6 +85,7 @@
     {
       "hostname": "PE3",
       "availableInt" : 4,
+      "vrfInt" : [],
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -97,6 +100,7 @@
     {
       "hostname": "PE4",
       "availableInt" : 3,
+      "vrfInt" : [],
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -109,6 +113,7 @@
     {
       "hostname": "PE5",
       "availableInt" : 3,
+      "vrfInt" : [],
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -121,6 +126,7 @@
     {
       "hostname": "PE6",
       "availableInt" : 4,
+      "vrfInt" : [],
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -135,6 +141,7 @@
     {
       "hostname": "PE7",
       "availableInt" : 4,
+      "vrfInt" : [],
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -149,17 +156,18 @@
     {
       "hostname": "PE8",
       "availableInt" : 5,
+      "vrfInt" : ["g1/0"],
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
       "int4" : "g4/0",
       "int5" : "g5/0",
       "loopback0": "8.8.8.8",
-      "IPg1/0": "10.0.0.118",
+      "IPg1/0": "192.168.1.2",
       "IPg2/0": "10.0.0.122",
       "IPg3/0": "10.0.0.126",
       "IPg4/0": "10.0.0.130",
-      "IPg5/0": "192.168.1.2", 
+      "IPg5/0": "10.0.0.118",
       "netmaskSubClient" : "255.255.255.0",
       "netmaskCore" : "255.255.255.252"
     }
