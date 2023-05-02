@@ -5,13 +5,13 @@ import GNS3_Server_API
 import jinja2
 
 
-# cas particulier d'un reseau en ligne (  -- P -- ... -- P --  )
-#   * nbRP : Nb de router provider (hors PEs, qui seront ajoutés apres)
-def generateInfoPs(nbRP):
+# choix technique : cas d'un reseau triangulaire
+#   * nbRT : Nb de router provider dans mon reseau
+def generateInfoPs(nbRT): 
     ip_base = "192.168.0."
 
     data = []
-    for routerID in range(1, nbRP + 1):
+    for routerID in range(1,nbRT+1):
         template = {}
         at_reseau = (routerID - 1) * 4
 
@@ -19,12 +19,12 @@ def generateInfoPs(nbRP):
         template['loopbackAddress'] = str(routerID) + '.' + str(routerID) + '.' + str(routerID) + '.' + str(routerID)
 
         if routerID != 1:
-            template['ipAddressG1'] = ip_base + str(at_reseau - 2)  # statique pour mask /30
-
-        if routerID != nbRP:
-            template['ipAddressG2'] = ip_base + str(at_reseau + 1)  # statique pour mask /30
-
-        template['netmask'] = "255.255.255.252"  # statique pour mask /30
+            template['ipAddressG1'] = ip_base+str(at_reseau-2) #statique pour mask /30
+        
+        if routerID != nbRT:
+            template['ipAddressG2'] = ip_base+str(at_reseau+1) #statique pour mask /30
+        
+        template['netmask'] = "255.255.255.252" #statique pour mask /30
         template['processId'] = "1"
         template['areaNumber'] = "0"
 
