@@ -10,6 +10,7 @@
   "OSPF_config": [
     {
       "OSPFprocessId": "1",
+      "VrfOSPFprocessId": "2",
       "OSPFareaCore": "0"
     }
 
@@ -25,6 +26,7 @@
   "VRF_config": [
     {
       "vrfName": "RED",
+      "vrfMembers": ["CE1", "CE2"],
       "RD" : "4:4",
       "RTexport": "4:4",
       "RTimport": "4:4"
@@ -53,6 +55,7 @@
       "hostname": "PE1",
       "availableInt" : 5,
       "vrfInt" : ["g1/0"],
+      "connectedTo" : "CE1",
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -71,6 +74,7 @@
       "hostname": "PE2",
       "availableInt" : 4,
       "vrfInt" : [],
+      "connectedTo" : "",
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -86,6 +90,7 @@
       "hostname": "PE3",
       "availableInt" : 4,
       "vrfInt" : [],
+      "connectedTo" : "",
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -101,6 +106,7 @@
       "hostname": "PE4",
       "availableInt" : 3,
       "vrfInt" : [],
+      "connectedTo" : "",
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -114,6 +120,7 @@
       "hostname": "PE5",
       "availableInt" : 3,
       "vrfInt" : [],
+      "connectedTo" : "",
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -127,6 +134,7 @@
       "hostname": "PE6",
       "availableInt" : 4,
       "vrfInt" : [],
+      "connectedTo" : "",
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -142,6 +150,7 @@
       "hostname": "PE7",
       "availableInt" : 4,
       "vrfInt" : [],
+      "connectedTo" : "",
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",
@@ -157,6 +166,7 @@
       "hostname": "PE8",
       "availableInt" : 5,
       "vrfInt" : ["g1/0"],
+      "connectedTo" : "CE1",
       "int1" : "g1/0",
       "int2" : "g2/0",
       "int3" : "g3/0",

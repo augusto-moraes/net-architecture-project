@@ -22,30 +22,23 @@ def main():
     api.create_link_v2(lab, nodes, conf_file)  # Creates links
     print("Starting nodes")
     lab.start_nodes()
-    #time.sleep(100)   #REPLACE BY WAIT FOR HOSTNAME PROMPT
     print("Configuring nodes")
     for node in nodes:
         if re.match("PE[0-9]", node.name):
             print("Configuring " + node.name)
-            #confPE.vrf(node, conf_file)
+            confPE.initial(node, conf_file)
+            #print("Error")
+
+        if re.match("P[0-9]", node.name):
+            print("Configuring " + node.name)
             try:
-                confPE.initial(node, conf_file)
+                confP.initial(node, conf_file)
             except:
                 print("Error")
-            #confPE.ospf(node, conf_file)
-            #confPE.ldp(node, conf_file)
-            #confPE.ibgp(node, conf_file)
+        if re.match("CE[0-9]", node.name):
+            print("Configuring " + node.name)
+            confCE.initial(node, conf_file)
 
-
-        #if re.match("P[0-9]", node.name):
-            #print("Configuring Ps")
-            #confP.initial(node, conf_file)
-            #confP.ospf(node, conf_file)
-            #confP.ldp(node, conf_file)
-        #if re.match("CE[0-9]", node.name):
-            #print("Configuring CEs")
-            #confCE.initial(node, conf_file)
-            #confCE.ebgp(node, conf_file)
 
     # Add listener to listen if router is added in GNS3 to configure it
 

@@ -7,14 +7,10 @@ def initial(node, conf_file):
 
     HOST = '192.168.33.128'
     PORT = api.get_node_console(node)
-    #PORT = "5000"
-    # appel à l'API pour savoir sur quel port est chaque routeur
+
     tn = telnetlib.Telnet(HOST, PORT)  # PE1.console)
 
-    #name = node.name
     name = node.name
-
-
 
     for node in conf_file["PE_routers"]:
         if node["hostname"] == name:
@@ -51,6 +47,8 @@ def initial(node, conf_file):
                 tn.write(b"no sh\r\n")
                 tn.write(b"ip ospf " + conf_file["OSPF_config"][0]["OSPFprocessId"].encode('utf-8') + b" area " +
                          conf_file["OSPF_config"][0]["OSPFareaCore"].encode('utf-8') + b" secondaries none\r\n")
+
+            tn.write(b"router ospf " + conf_file["OSPF_config"][0]["VrfOSPFprocessId"].encode('utf-8') + b" vrf " + conf_file["VRF_config"][0]["vrfName"].encode('utf-8') + b"\r\n")
             tn.write(b"router ospf " + conf_file["OSPF_config"][0]["OSPFprocessId"].encode('utf-8') + b"\r\n")
             tn.write(b"mpls ldp autoconfig\r\n")
 
@@ -73,6 +71,12 @@ def initial(node, conf_file):
                 if router["hostname"] != name:
                     tn.write(b"neighbor " + router["loopback0"].encode('utf-8') + b" activate\r\n")
                     tn.write(b"neighbor " + router["loopback0"].encode('utf-8') + b" send-community extended\r\n")
+            tn.write(b"exit\r\n")
+            tn.write(b"address-family ipv4 vrf " + conf_file["VRF_config"][0]["vrfName"].encode('utf-8') + b"\r\n")
+            for router in conf_file["CE_routers"]:
+                if router["hostname"] == node["connectedTo"]:
+                    tn.write(b"neighbor " + router["IPg1/0"].encode('utf-8') + b" remote-as " + conf_file["BGP_config"][0]["BGPClientAAS"].encode('utf-8') + b"\r\n")
+                    tn.write(b"neighbor " + router["IPg1/0"].encode('utf-8') + b" activate\r\n")
             tn.write(b"end\r\n")
             tn.write(b"write mem\r\n")
             tn.write(b"\r\n")

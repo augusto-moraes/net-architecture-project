@@ -46,21 +46,23 @@ def create_router(lab, config_file):  # Create router (CE, PE, P)
 
 
 def create_matrix():
-    matrix = [[0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0], #PE1
-              [1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0], #PE2
-              [1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0], #PE3
-              [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0], #PE4
-              [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0], #PE5
-              [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0], #PE6
-              [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1], #PE7
-              [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1], #PE8
-              [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0], #P1
-              [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0], #P2
-              [0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0], #P3
-              [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1], #P4
-              [0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1], #P5
-              [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1], #P6
-              [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0]] #P7
+    matrix = [[0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0], #PE1
+              [1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0], #PE2
+              [1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0], #PE3
+              [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], #PE4
+              [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0], #PE5
+              [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0], #PE6
+              [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0], #PE7
+              [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1], #PE8
+              [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0], #P1
+              [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0], #P2
+              [0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0], #P3
+              [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0], #P4
+              [0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0], #P5
+              [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0], #P6
+              [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0], #P7
+              [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], #CE1
+              [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]] #CE2
 
     matrix_auto_gen = []
     # JE SAIS PAS COMMENT FAIRE ALED
@@ -134,6 +136,9 @@ def create_link_v2(lab, router_list, json_file):
     for routerP in json_file["P_routers"]:
         router_interfaces[routerP["hostname"]] = routerP["availableInt"]
 
+    for routerCE in json_file["CE_routers"]:
+        router_interfaces[routerCE["hostname"]] = routerCE["availableInt"]
+
     for i in range(len(matrix)):
         for j in range(i, len(matrix[i])):
             if matrix[i][j] == 1:
@@ -177,7 +182,7 @@ def get_router_list(config_file):
         router_names.append(PE["hostname"])
     for P in config_file["P_routers"]:
         router_names.append(P["hostname"])
-    #for CE in config_file["CE_routers"]:
-    #    router_names.append(CE["hostname"])
+    for CE in config_file["CE_routers"]:
+        router_names.append(CE["hostname"])
     print("Routers:", router_names)
     return router_names
