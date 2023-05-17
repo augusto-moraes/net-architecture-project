@@ -29,9 +29,9 @@ def initial(node, conf_file):
             tn.write(b"ip add " + node["loopback0"].encode('utf-8') + b" 255.255.255.255\r\n")
 
             # Changes the IP for each int of the node
-            for i in range(1, nb_of_interfaces):
+            for i in range(1, nb_of_interfaces + 1):
                 tn.write(b"int " + node["int" + str(i)].encode('utf-8') + b"\r\n")
-                tn.write(b"ip add " + node["IP" + node["int" + str(i)]].encode('utf-8') + b" " + node["netmaskCore"].encode('utf-8') + b"\r\n")  # ADD when netmaskClient
+                tn.write(b"ip add " + node["IP" + node["int" + str(i)]].encode('utf-8') + b" " + node["netmaskClient"].encode('utf-8') + b"\r\n")  # ADD when netmaskClient
                 tn.write(b"no sh\r\n")
 
             # CONF eBGP
