@@ -4,7 +4,25 @@ from gns3fy import Gns3Connector, Project, Link, Node
 
 # Script to communicate with the GNS3 server, create labs, routers, links
 
-server = Gns3Connector(url="http://192.168.33.128:3080", user="admin", cred="1234")  # Connection to GNS3 server
+server = Gns3Connector(url="http://localhost:3080", user="admin", cred="1234")  # Connection to GNS3 server
+
+matrix = [[0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0], #PE1
+              [1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0], #PE2
+              [1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0], #PE3
+              [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], #PE4
+              [0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0], #PE5
+              [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0], #PE6
+              [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0], #PE7
+              [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1], #PE8
+              [1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0], #P1
+              [1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0], #P2
+              [0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0], #P3
+              [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0], #P4
+              [0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0], #P5
+              [0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0], #P6
+              [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0], #P7
+              [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], #CE1
+              [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]] #CE2
 
 
 def create_lab(project_name):  # create lab and GNS3 project
@@ -41,6 +59,10 @@ def create_router(lab, config_file):  # Create router (CE, PE, P)
             template="c7200")
         router.create()
         nodes.append(router)
+
+    for n in nodes: #debug augusto
+        print(n.name)
+
     print("Number of nodes:", len(nodes))
     return nodes
 
@@ -143,16 +165,16 @@ def create_link_v2(lab, router_list, json_file):
         for j in range(i, len(matrix[i])):
             if matrix[i][j] == 1:
                 print("links :", routers[i], "->", routers[j])
-                links = [
-                    dict(node_id=router_list[i].node_id,
-                         adapter_number=router_interfaces[routers[i]], port_number=0),
-                    dict(node_id=router_list[j].node_id,
-                         adapter_number=router_interfaces[routers[j]], port_number=0)
-                ]
-                extra_link = Link(project_id=lab.project_id, connector=server, nodes=links)
-                extra_link.create()
-                router_interfaces[routers[i]] -= 1
-                router_interfaces[routers[j]] -= 1
+                #links = [ # ne marche pas chez augusto
+                #    dict(node_id=router_list[i].node_id,
+                #         adapter_number=router_interfaces[routers[i]], port_number=0),
+                #    dict(node_id=router_list[j].node_id,
+                #         adapter_number=router_interfaces[routers[j]], port_number=0)
+                #]
+                #extra_link = Link(project_id=lab.project_id, connector=server, nodes=links)
+                #extra_link.create()
+                #router_interfaces[routers[i]] -= 1
+                #router_interfaces[routers[j]] -= 1
 
 
 def add_router(lab):

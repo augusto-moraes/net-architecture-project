@@ -3,6 +3,7 @@ import GNS3_Server_API as api
 import conf_telnet_CE as confCE
 import conf_telnet_PE as confPE
 import conf_telnet_P as confP
+import ihm as ihm
 import re
 import os
 import time
@@ -11,6 +12,7 @@ def main():
     router_constellation = ["PE1", "PE2", "PE3", "PE4", "PE5", "PE6", "PE7", "PE8", "P1", "P2", "P3", "P4", "P5", "P6",
                             "P7"]
 
+    ihm.run()
 
     test_file = "test_config.json"
     conf_file = json.load(open(test_file))

@@ -10,7 +10,7 @@ HOST = 'localhost'
 # password = getpass.getpass()
 # enablepassword = getpass.getpass()
 
-# appel à l4API pour savoir sur quel port est chaque routeur
+# appel à l'API pour savoir sur quel port est chaque routeur
 tn = telnetlib.Telnet(HOST, 5001)  # PE1.console)
 
 
@@ -19,7 +19,7 @@ def conf_Pe():
     # tn.write(b"enable\n")
     # tn.write(enablepassword.encode('ascii') + b"\n")
     tn.write(b"conf t\r\n")
-    tn.write(b"int gigabitEthernet 1/0\r\n")
+    tn.write(b"int gigabitEthernet 1/0\r\n" )
     tn.write(b"ip add 192.168.3.2 255.255.255.0\r\n")
     tn.write(b"no sh\r\n")
     tn.write(b"exit\r\n")
