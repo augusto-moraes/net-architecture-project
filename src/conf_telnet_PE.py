@@ -36,7 +36,7 @@ def initial(node, conf_file):
                      conf_file["OSPF_config"][0]["OSPFareaCore"].encode('utf-8') + b" secondaries none\r\n")
 
             # Changes the IP for each int of the node
-            for i in range(1, nb_of_interfaces):
+            for i in range(1, nb_of_interfaces + 1):
                 tn.write(b"int " + node["int" + str(i)].encode('utf-8') + b"\r\n")
                 for vrfInt in node["vrfInt"]:
                     if node["int" + str(i)] == vrfInt:
