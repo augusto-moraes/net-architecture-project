@@ -1,0 +1,28 @@
+{
+    "configFile": {
+        "project": {
+            "name": "Whats the project's name? ",
+            "description": "Project's short description: "
+        }, 
+        "routers": {
+            "cardinal_CE": "How Many CE routers? ",
+            "cardinal_PE": "How Many PE routers? ",
+            "cardinal_P": "How Many P routers? "
+        },
+        "ospf": {
+            "coreArea": "OSPF core area identifier (int)? ",
+            "clientArea": "OSPF client area identifier (int)? "
+        }, 
+        "bgp": {
+           "coreAS": "BGP core AS identifier (int)? ",
+           "clientA_AS": "[Info] For the moment, we only support 2 BGP clients (Client A and B)\nBGP client A AS number? ", 
+           "clientB_AS": "BGP client B AS number? "
+        },
+        "vrf": {
+          "name": "VRF name? ",
+          "RD": "RD? ",
+          "RTexport": "RT export? ",
+          "RTimport": "RT import? "
+        }
+    }
+}

@@ -7,7 +7,6 @@ from gns3fy import Gns3Connector, Project, Link, Node
 server = Gns3Connector(url="http://localhost:3080", user="admin", cred="1234")  # Connection to GNS3 server
 
 def create_lab(project_name):  # create lab and GNS3 project
-
     lab = Project(name=project_name, connector=server)
     try:
         lab.create()  # Create lab													#OK
@@ -15,7 +14,7 @@ def create_lab(project_name):  # create lab and GNS3 project
         lab.get()
         lab.open()  # Open existing lab if already exists
 
-    print( "Project id:", lab.project_id)
+    print("Project id:", lab.project_id)
     return lab
 
 

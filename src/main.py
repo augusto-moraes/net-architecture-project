@@ -12,7 +12,7 @@ def main():
     router_constellation = ["PE1", "PE2", "PE3", "PE4", "PE5", "PE6", "PE7", "PE8", "P1", "P2", "P3", "P4", "P5", "P6",
                             "P7"]
 
-    ihm.run()
+    ihm.init()
 
     test_file = "test_config.json"
     conf_file = json.load(open(test_file))
