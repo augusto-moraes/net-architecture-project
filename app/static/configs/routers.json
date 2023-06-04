@@ -1,1 +1,94 @@
-{"CE": [{"hostname": "CE0", "availableInt": "1", "int1": "g1/0", "loopback0": "1.1.1.1", "IPg1/0": "192.168.0.1", "netmaskClient": "255.255.255.0"}, {"hostname": "CE1", "availableInt": "1", "int1": "g1/0", "loopback0": "2.2.2.2", "IPg1/0": "192.168.1.1", "netmaskClient": "255.255.255.0"}], "PE": [{"hostname": "PE0", "availableInt": "5", "vrfInt": "g1/0", "connectedTo": "CE0", "int1": "g1/0", "int2": "g2/0", "int3": "g3/0", "int4": "g4/0", "int5": "g5/0", "loopback0": "3.3.3.3", "IPg1/0": "192.168.0.2", "IPg2/0": "10.0.0.1", "IPg3/0": "10.0.0.2", "IPg4/0": "10.0.0.5", "IPg5/0": "10.0.0.6", "netmaskClient": "255.255.255.0", "netmaskCore": "255.255.255.252"}, {"hostname": "PE1", "availableInt": "5", "vrfInt": "g1/0", "connectedTo": "CE1", "int1": "g1/0", "int2": "g2/0", "int3": "g3/0", "int4": "g4/0", "int5": "g5/0", "loopback0": "4.4.4.4", "IPg1/0": "192.168.1.2", "IPg2/0": "10.0.0.9", "IPg3/0": "10.0.0.10", "IPg4/0": "10.0.0.13", "IPg5/0": "10.0.0.14", "netmaskClient": "255.255.255.0", "netmaskCore": "255.255.255.252"}], "P": [{"hostname": "P0", "availableInt": "5", "int1": "g1/0", "int2": "g2/0", "int3": "g3/0", "int4": "g4/0", "int5": "g5/0", "loopback0": "5.5.5.5", "IPg1/0": "10.0.0.17", "IPg2/0": "10.0.0.18", "IPg3/0": "10.0.0.21", "IPg4/0": "10.0.0.22", "IPg5/0": "10.0.0.25", "netmaskCore": "255.255.255.252"}, {"hostname": "P1", "availableInt": "5", "int1": "g1/0", "int2": "g2/0", "int3": "g3/0", "int4": "g4/0", "int5": "g5/0", "loopback0": "6.6.6.6", "IPg1/0": "10.0.0.26", "IPg2/0": "10.0.0.29", "IPg3/0": "10.0.0.30", "IPg4/0": "10.0.0.33", "IPg5/0": "10.0.0.34", "netmaskCore": "255.255.255.252"}]}
+{
+  "CE": [
+    {
+      "hostname": "CE0",
+      "availableInt": "1",
+      "int1": "g1/0",
+      "loopback0": "1.1.1.1",
+      "IPg1/0": "192.168.0.1",
+      "netmaskClient": "255.255.255.0"
+    },
+    {
+      "hostname": "CE1",
+      "availableInt": "1",
+      "int1": "g1/0",
+      "loopback0": "2.2.2.2",
+      "IPg1/0": "192.168.1.1",
+      "netmaskClient": "255.255.255.0"
+    }
+  ],
+  "PE": [
+    {
+      "hostname": "PE0",
+      "availableInt": "5",
+      "vrfInt": "g1/0",
+      "connectedTo": "CE0",
+      "int1": "g1/0",
+      "int2": "g2/0",
+      "int3": "g3/0",
+      "int4": "g4/0",
+      "int5": "g5/0",
+      "loopback0": "3.3.3.3",
+      "IPg1/0": "192.168.0.2",
+      "IPg2/0": "10.0.0.1",
+      "IPg3/0": "10.0.0.2",
+      "IPg4/0": "10.0.0.5",
+      "IPg5/0": "10.0.0.6",
+      "netmaskClient": "255.255.255.0",
+      "netmaskCore": "255.255.255.252"
+    },
+    {
+      "hostname": "PE1",
+      "availableInt": "5",
+      "vrfInt": "g1/0",
+      "connectedTo": "CE1",
+      "int1": "g1/0",
+      "int2": "g2/0",
+      "int3": "g3/0",
+      "int4": "g4/0",
+      "int5": "g5/0",
+      "loopback0": "4.4.4.4",
+      "IPg1/0": "192.168.1.2",
+      "IPg2/0": "10.0.0.9",
+      "IPg3/0": "10.0.0.10",
+      "IPg4/0": "10.0.0.13",
+      "IPg5/0": "10.0.0.14",
+      "netmaskClient": "255.255.255.0",
+      "netmaskCore": "255.255.255.252"
+    }
+  ],
+  "P": [
+    {
+      "hostname": "P0",
+      "availableInt": "5",
+      "int1": "g1/0",
+      "int2": "g2/0",
+      "int3": "g3/0",
+      "int4": "g4/0",
+      "int5": "g5/0",
+      "loopback0": "5.5.5.5",
+      "IPg1/0": "10.0.0.17",
+      "IPg2/0": "10.0.0.18",
+      "IPg3/0": "10.0.0.21",
+      "IPg4/0": "10.0.0.22",
+      "IPg5/0": "10.0.0.25",
+      "netmaskCore": "255.255.255.252"
+    },
+    {
+      "hostname": "P1",
+      "availableInt": "5",
+      "int1": "g1/0",
+      "int2": "g2/0",
+      "int3": "g3/0",
+      "int4": "g4/0",
+      "int5": "g5/0",
+      "loopback0": "6.6.6.6",
+      "IPg1/0": "10.0.0.26",
+      "IPg2/0": "10.0.0.29",
+      "IPg3/0": "10.0.0.30",
+      "IPg4/0": "10.0.0.33",
+      "IPg5/0": "10.0.0.34",
+      "netmaskCore": "255.255.255.252"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "project": {
-    "name": "brand new projec",
-    "description": "un test qui fonctionne"
+    "name": "test",
+    "description": "test description"
   },
   "routers": {
     "nbOfCE": "2",
