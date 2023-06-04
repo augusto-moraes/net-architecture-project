@@ -3,7 +3,7 @@ import Gns3ServerApi as api
 import conf_telnet_CE as confCE
 import conf_telnet_PE as confPE
 import conf_telnet_P as confP
-import ihm as ihm
+import JsonManager as ihm
 import re
 import os
 import time
@@ -17,7 +17,7 @@ def main():
     lab = api.createLab()  # Lab object
 
     print("## Creating nodes ##")
-    nodes = api.create_router()  # List of nodes (objects)
+    nodes = api.createRouters()  # List of nodes (objects)
 
     print("Creating links")
     api.create_link_v2(lab, nodes, conf_file)  # Creates links

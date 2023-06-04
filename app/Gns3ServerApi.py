@@ -1,5 +1,5 @@
 from gns3fy import Gns3Connector, Project, Link, Node
-import json
+import JsonManager as ihm
 
 # from tabulate import tabulate
 
@@ -7,13 +7,13 @@ import json
 
 ### consts ####
 server = Gns3Connector(url="http://localhost:3080", user="admin", cred="1234")  # Connection to GNS3 server
-initialConfigs = json.load(open("./static/configs/initialConfigs.json"))
 
 
 ### "class" members ###
 lab = {}
 
 def createLab():  # create lab and GNS3 project
+    initialConfigs = ihm.getInitialConfigs()
     lab = Project(name=initialConfigs["project"]["name"], connector=server)
     try:
         lab.create()  # Create lab													#OK
@@ -24,7 +24,7 @@ def createLab():  # create lab and GNS3 project
     print("Project id:", lab.project_id)
     return lab
 
-def create_router():  # Create router (CE, PE, P)
+def createRouters():  # Create router (CE, PE, P)
 
     # server.create_template("test", "local", )
     # for template in server.get_templates():

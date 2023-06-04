@@ -1,12 +1,14 @@
 import json
 import os.path
 
+initialConfigsDir = './static/configs/initialConfigs.json'
+routersConfigDir = './static/configs/routers.json'
+
 def createInitialConfigsJSON():
     res = {}
-    resDir = './static/configs/initialConfigs.json'
 
-    if os.path.isfile(resDir):
-        action = input("[Info] An initial Config file already exists.\n[Info] If you continue, a new one will be created and the old one will be overwritten.\nType q to quit, or anything else (enter) to continue :)\n")
+    if os.path.isfile(initialConfigsDir):
+        action = input("[Info] An initial config file already exists.\n[Info] If you continue, a new one will be created and the old one will be overwritten.\nType q to quit, or anything else (enter) to continue :)\n")
         if action == 'q': return
 
     with open('./static/templates/ihm.json') as f:
@@ -16,11 +18,14 @@ def createInitialConfigsJSON():
             for key in jsonObj[step]:
                 res[step][key] = input(jsonObj[step][key])
         
-    with open(resDir, 'w') as outfile:
+        if res["routers"]["nbOfPE"] > res["routers"]["nbOfCE"]:
+            print("[Warning] Weird behaviour: You have more PEs than CEs. Is that right? \nPlease check the initialConfigs.json file")
+        
+    with open(initialConfigsDir, 'w') as outfile:
         json.dump(res,outfile)
 
 def createOrUpdateRoutersJSON():
-    initialConfigs = json.load(open("./static/configs/initialConfigs.json"))
+    initialConfigs = getInitialConfigs()
 
     if os.path.isfile('./static/configs/routers.json'):
         action = input("[Info] A router config file already exists.\n[Info] If you continue, a new one will be created and the old one will be overwritten.\nType q to quit, or anything else (enter) to continue :)\n")
@@ -75,6 +80,20 @@ def createOrUpdateRoutersJSON():
 def getNewIpSuffix(currentIp):
     if (currentIp+2)%4 == 0: return currentIp+3
     return currentIp+1
+
+def getInitialConfigs():
+    if not os.path.isfile(initialConfigsDir):
+        action = input("[Error] Oops, something went wrong: no initial configs file have been found\nType enter to create a new one")
+        if action == 'q': return
+        createInitialConfigsJSON()
+    return json.load(open("./static/configs/initialConfigs.json"))
+
+def getRoutersConfig():
+    if not os.path.isfile(routersConfigDir):
+        action = input("[Error] Oops, something went wrong: no routers configs file have been found\nType enter to create a new one")
+        if action == 'q': return
+        createOrUpdateRoutersJSON()
+    return json.load(open("./static/configs/routers.json"))
 
 def main():
     # ihm test
