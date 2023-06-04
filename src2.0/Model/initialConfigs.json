@@ -1,1 +1,0 @@
-{"project": {"name": "b", "description": "12"}, "routers": {"cardinal_CE": "32", "cardinal_PE": "12", "cardinal_P": "41"}, "ospf": {"coreArea": "5", "clientArea": "3441"}, "bgp": {"coreAS": "32", "clientA_AS": "12", "clientB_AS": "32"}, "vrf": {"name": "43", "RD": "12", "RTexport": "1", "RTimport": "2"}}

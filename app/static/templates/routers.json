@@ -1,0 +1,45 @@
+{
+    "CE": {
+        "hostname": "CE$",
+        "availableInt" : 1,
+        "int1" : "g1/0",
+        "loopback0": "$.$.$.$",
+        "IPg1/0": "192.168.$.1",
+        "netmaskClient" : "255.255.255.0"
+    },
+    "PE": {
+        "hostname": "PE$",
+        "availableInt" : 5,
+        "vrfInt" : "g1/0",
+        "connectedTo" : "CE$",
+        "int1" : "g1/0",
+        "int2" : "g2/0",
+        "int3" : "g3/0",
+        "int4" : "g4/0",
+        "int5" : "g5/0",
+        "loopback0": "$.$.$.$",
+        "IPg1/0": "192.168.$.2",
+        "IPg2/0": "10.0.0.$",
+        "IPg3/0": "10.0.0.$",
+        "IPg4/0": "10.0.0.$",
+        "IPg5/0": "10.0.0.$",
+        "netmaskClient" : "255.255.255.0",
+        "netmaskCore" : "255.255.255.252"
+    },
+    "P": {
+        "hostname": "P$",
+        "availableInt" : 5,
+        "int1" : "g1/0",
+        "int2" : "g2/0",
+        "int3" : "g3/0",
+        "int4" : "g4/0",
+        "int5" : "g5/0",
+        "loopback0": "$.$.$.$",
+        "IPg1/0": "10.0.0.$",
+        "IPg2/0": "10.0.0.$",
+        "IPg3/0": "10.0.0.$",
+        "IPg4/0": "10.0.0.$",
+        "IPg5/0": "10.0.0.$", 
+        "netmaskCore" : "255.255.255.252"
+    }
+}
