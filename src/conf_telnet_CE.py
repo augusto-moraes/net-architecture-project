@@ -20,8 +20,8 @@ def initial(node, conf_file):
             tn.read_until(name.encode('utf-8') + b"#")
             print("finished reading")
             tn.write(b"conf t\r\n")
-            tn.write(b"no logging monitor\r\n")
-            tn.write(b"no logging console\r\n")
+            #tn.write(b"no logging monitor\r\n")
+            #tn.write(b"no logging console\r\n")
             tn.write(b"ip cef\r\n")
 
             # CONF LOOPBACK
@@ -37,7 +37,7 @@ def initial(node, conf_file):
             # CONF eBGP
             tn.write(b"router bgp " + conf_file["BGP_config"][0]["BGPClientAAS"].encode('utf-8') + b"\r\n")
             tn.write(b"bgp log-neighbor-changes\r\n")
-            tn.write(b"neighbor " + node["IPg1/0"].encode('utf-8') + b" remote-as " + conf_file["BGP_config"][0]["BGPClientBAS"].encode('utf-8') + b"\r\n")
+            tn.write(b"neighbor " + conf_file["PE_routers"][node["connectedTo"]]["IPg1/0"].encode('utf-8') + b" remote-as " + conf_file["BGP_config"][0]["BGPCoreAS"].encode('utf-8') + b"\r\n")
             tn.write(b"address-family ipv4\r\n")
             tn.write(b"network " + node["loopback0"].encode('utf-8') + b" mask 255.255.255.255\r\n")
             tn.write(b"neighbor " + node["IPg1/0"].encode('utf-8') + b" activate\r\n")

@@ -23,8 +23,8 @@ def initial(node, conf_file):
             print("finished reading")
             # CONFIG VRF
             tn.write(b"conf t\r\n")
-            tn.write(b"no logging monitor\r\n")
-            tn.write(b"no logging console\r\n")
+            #tn.write(b"no logging monitor\r\n")
+            #tn.write(b"no logging console\r\n")
             tn.write(b"ip cef\r\n")
 
             #CONF LOOPBACK

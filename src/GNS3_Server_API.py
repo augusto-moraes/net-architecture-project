@@ -64,6 +64,7 @@ def create_matrix():
               [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], #CE1
               [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]] #CE2
 
+
     matrix_auto_gen = []
     # JE SAIS PAS COMMENT FAIRE ALED
 
@@ -125,19 +126,22 @@ def create_link_v2(lab, router_list, json_file):
     matrix = create_matrix()
     routers = []
     router_interfaces = {}
+    link_counter = 0
 
     #
     for router in router_list:
         routers.append(router.name)
 
     for routerPE in json_file["PE_routers"]:
-        router_interfaces[routerPE["hostname"]] = routerPE["availableInt"]
-
+        #router_interfaces[routerPE["hostname"]] = routerPE["availableInt"]
+        router_interfaces[routerPE["hostname"]] = 1
     for routerP in json_file["P_routers"]:
-        router_interfaces[routerP["hostname"]] = routerP["availableInt"]
+        #router_interfaces[routerP["hostname"]] = routerP["availableInt"]
+        router_interfaces[routerP["hostname"]] = 1
 
     for routerCE in json_file["CE_routers"]:
-        router_interfaces[routerCE["hostname"]] = routerCE["availableInt"]
+        #router_interfaces[routerCE["hostname"]] = routerCE["availableInt"]
+        router_interfaces[routerCE["hostname"]] = 1
 
     for i in range(len(matrix)):
         for j in range(i, len(matrix[i])):
@@ -151,9 +155,10 @@ def create_link_v2(lab, router_list, json_file):
                 ]
                 extra_link = Link(project_id=lab.project_id, connector=server, nodes=links)
                 extra_link.create()
-                router_interfaces[routers[i]] -= 1
-                router_interfaces[routers[j]] -= 1
-
+                router_interfaces[routers[i]] += 1
+                router_interfaces[routers[j]] += 1
+                link_counter += 1
+    print("Number of links created", link_counter)
 
 def add_router(lab):
     return
