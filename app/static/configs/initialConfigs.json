@@ -1,0 +1,1 @@
+{"project": {"name": "brand new projec", "description": "un test qui fonctionne"}, "routers": {"nbOfCE": "2", "nbOfPE": "2", "nbOfP": "2"}, "ospf": {"coreArea": "1", "clientArea": "1"}, "bgp": {"coreAS": "1", "clientA_AS": "1", "clientB_AS": "1"}, "vrf": {"name": "1", "RD": "1", "RTexport": "1", "RTimport": "1"}}
