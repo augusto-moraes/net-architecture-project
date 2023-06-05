@@ -24,6 +24,8 @@ def createInitialConfigsJSON():
         res["project"]["server_url"] = "http://192.168.33.128:3080"
         res["project"]["user"] = "admin"
         res["project"]["cred"] = "1234"
+
+        # res["vrf"]["vrfMembers"] = [x[0:3] for x in res["vrf"]["vrfMembers"]] # uncomment chez boris
         
     with open(initialConfigsDir, 'w') as outfile:
         json.dump(res,outfile)
