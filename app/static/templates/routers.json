@@ -10,7 +10,7 @@
     "PE": {
         "hostname": "PE$",
         "availableInt" : 5,
-        "vrfInt" : "g1/0",
+        "vrfInt" : ["g1/0"],
         "connectedTo" : "CE$",
         "int1" : "g1/0",
         "int2" : "g2/0",

@@ -1,7 +1,10 @@
 {
   "project": {
     "name": "test",
-    "description": "test description"
+    "description": "test desc",
+    "server_url": "http://192.168.33.128:3080",
+    "user": "admin",
+    "cred": "1234"
   },
   "routers": {
     "nbOfCE": "2",
@@ -18,7 +21,7 @@
     "clientB_AS": "1"
   },
   "vrf": {
-    "name": "1",
+    "name": "11",
     "RD": "1",
     "RTexport": "1",
     "RTimport": "1"

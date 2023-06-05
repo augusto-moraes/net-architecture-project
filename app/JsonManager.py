@@ -21,6 +21,10 @@ def createInitialConfigsJSON():
         if res["routers"]["nbOfPE"] > res["routers"]["nbOfCE"]:
             print("[Warning] Weird behaviour: You have more PEs than CEs. Is that right? \nPlease check the initialConfigs.json file")
         
+        res["project"]["server_url"] = "http://192.168.33.128:3080"
+        res["project"]["user"] = "admin"
+        res["project"]["cred"] = "1234"
+        
     with open(initialConfigsDir, 'w') as outfile:
         json.dump(res,outfile)
 
@@ -42,6 +46,8 @@ def createOrUpdateRoutersJSON():
             if elem == "loopback0": 
                 routerCE[elem] = str(routerTemplates["CE"][elem]).replace("$",str(currentLoopback))
                 currentLoopback = currentLoopback+1
+            elif elem == "vrfInt" or elem == "availableInt":
+                routerCE[elem] = routerTemplates["PE"][elem]
             else: 
                 routerCE[elem] = str(routerTemplates["CE"][elem]).replace("$",str(i))
         routerObj["CE"].append(routerCE)
@@ -52,6 +58,8 @@ def createOrUpdateRoutersJSON():
             if elem == "loopback0": 
                 routerPE[elem] = str(routerTemplates["PE"][elem]).replace("$",str(currentLoopback))
                 currentLoopback = currentLoopback+1
+            elif elem == "vrfInt" or elem == "availableInt":
+                routerPE[elem] = routerTemplates["PE"][elem]
             elif "IPg" in elem and elem != "IPg1/0":
                 routerPE[elem] = str(routerTemplates["PE"][elem]).replace("$",str(currentIpSuffix))
                 currentIpSuffix = getNewIpSuffix(currentIpSuffix)
@@ -65,6 +73,8 @@ def createOrUpdateRoutersJSON():
             if elem == "loopback0": 
                 routerP[elem] = str(routerTemplates["P"][elem]).replace("$",str(currentLoopback))
                 currentLoopback = currentLoopback+1
+            elif elem == "vrfInt" or elem == "availableInt":
+                routerP[elem] = routerTemplates["PE"][elem]
             elif "IPg" in elem:
                 routerP[elem] = str(routerTemplates["P"][elem]).replace("$",str(currentIpSuffix))
                 currentIpSuffix = getNewIpSuffix(currentIpSuffix)
