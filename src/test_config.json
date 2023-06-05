@@ -35,19 +35,23 @@
   "CE_routers": [
     {
       "hostname": "CE1",
+      "vrfMember": "RED",
       "availableInt" : 1,
       "int1" : "g1/0",
       "loopback0": "16.16.16.16",
       "IPg1/0": "192.168.0.1",
-      "netmaskClient" : "255.255.255.0"
+      "netmaskClient" : "255.255.255.0",
+      "LANNetwork" : "172.16.0.0/16"
     },
     {
       "hostname": "CE2",
+      "vrfMember": "RED",
       "availableInt" : 1,
       "int1" : "g1/0",
       "loopback0": "17.17.17.17",
       "IPg1/0": "192.168.1.1",
-      "netmaskClient" : "255.255.255.0"
+      "netmaskClient" : "255.255.255.0",
+      "LANNetwork" : "172.17.0.0/16"
     }
   ],
   "PE_routers": [
@@ -68,7 +72,9 @@
       "IPg4/0": "10.0.0.13",
       "IPg5/0": "10.0.0.1",
       "netmaskClient" : "255.255.255.0",
-      "netmaskCore" : "255.255.255.252"
+      "netmaskCore" : "255.255.255.252",
+      "LinkNetwork" : "10.0.0.0",
+      "LinkNetworkNetmask" : "0.0.0.3"
     },
     {
       "hostname": "PE2",
@@ -197,7 +203,10 @@
       "IPg3/0": "10.0.0.21",
       "IPg4/0": "10.0.0.33",
       "IPg5/0": "10.0.0.37", 
-      "netmaskCore" : "255.255.255.252"
+      "netmaskCore": "255.255.255.252",
+      "LinkNetwork1": "10.0.0.0",
+      "LinkNetwork2": "10.0.0.4",
+      "LinkNetworkNetmask" : "0.0.0.3"
     },
     {
       "hostname": "P2",
