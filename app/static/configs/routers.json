@@ -2,12 +2,8 @@
   "CE": [
     {
       "hostname": "CE0",
-<<<<<<< Updated upstream
-      "availableInt": 5,
-=======
       "vrfMember": "RED",
-      "availableInt": "1",
->>>>>>> Stashed changes
+      "availableInt": 5,
       "int1": "g1/0",
       "loopback0": "1.1.1.1",
       "IPg1/0": "192.168.0.1",
@@ -16,12 +12,8 @@
     },
     {
       "hostname": "CE1",
-<<<<<<< Updated upstream
-      "availableInt": 5,
-=======
       "vrfMember": "RED",
-      "availableInt": "1",
->>>>>>> Stashed changes
+      "availableInt": 5,
       "int1": "g1/0",
       "loopback0": "2.2.2.2",
       "IPg1/0": "192.168.1.1",
@@ -32,15 +24,10 @@
   "PE": [
     {
       "hostname": "PE0",
-<<<<<<< Updated upstream
       "availableInt": 5,
       "vrfInt": [
         "g1/0"
       ],
-=======
-      "availableInt": "5",
-      "vrfInt": "['g1/0']",
->>>>>>> Stashed changes
       "connectedTo": "CE0",
       "int1": "g1/0",
       "int2": "g2/0",
@@ -54,19 +41,16 @@
       "IPg4/0": "10.0.0.5",
       "IPg5/0": "10.0.0.6",
       "netmaskClient": "255.255.255.0",
-      "netmaskCore": "255.255.255.252"
+      "netmaskCore": "255.255.255.252",
+      "LinkNetwork": "10.0.0.0",
+      "LinkNetworkNetmask": "0.0.0.3"
     },
     {
       "hostname": "PE1",
-<<<<<<< Updated upstream
       "availableInt": 5,
       "vrfInt": [
         "g1/0"
       ],
-=======
-      "availableInt": "5",
-      "vrfInt": "['g1/0']",
->>>>>>> Stashed changes
       "connectedTo": "CE1",
       "int1": "g1/0",
       "int2": "g2/0",
@@ -80,7 +64,9 @@
       "IPg4/0": "10.0.0.13",
       "IPg5/0": "10.0.0.14",
       "netmaskClient": "255.255.255.0",
-      "netmaskCore": "255.255.255.252"
+      "netmaskCore": "255.255.255.252",
+      "LinkNetwork": "10.0.0.1",
+      "LinkNetworkNetmask": "0.0.0.3"
     }
   ],
   "P": [

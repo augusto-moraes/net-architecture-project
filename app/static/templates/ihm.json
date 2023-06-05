@@ -18,7 +18,7 @@
     },
     "vrf": {
         "name": "VRF name? ",
-        "vrfMembers": "Which CEs are members of this VRF?",
+        "vrfMembers": "Which CEs are members of this VRF? ",
         "RD": "RD? ",
         "RTexport": "RT export? ",
         "RTimport": "RT import? "
