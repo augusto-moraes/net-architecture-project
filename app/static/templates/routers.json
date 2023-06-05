@@ -1,11 +1,13 @@
 {
     "CE": {
         "hostname": "CE$",
+        "vrfMember": "RED",
         "availableInt" : 1,
         "int1" : "g1/0",
         "loopback0": "$.$.$.$",
         "IPg1/0": "192.168.$.1",
-        "netmaskClient" : "255.255.255.0"
+        "netmaskClient" : "255.255.255.0",
+        "LANNetwork" : "172.16.0.0/16"
     },
     "PE": {
         "hostname": "PE$",
@@ -24,7 +26,9 @@
         "IPg4/0": "10.0.0.$",
         "IPg5/0": "10.0.0.$",
         "netmaskClient" : "255.255.255.0",
-        "netmaskCore" : "255.255.255.252"
+        "netmaskCore" : "255.255.255.252",
+        "LinkNetwork" : "10.0.0.$",
+        "LinkNetworkNetmask" : "0.0.0.3"
     },
     "P": {
         "hostname": "P$",

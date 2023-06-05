@@ -2,19 +2,23 @@
   "CE": [
     {
       "hostname": "CE0",
+      "vrfMember": "RED",
       "availableInt": 5,
       "int1": "g1/0",
       "loopback0": "1.1.1.1",
       "IPg1/0": "192.168.0.1",
-      "netmaskClient": "255.255.255.0"
+      "netmaskClient": "255.255.255.0",
+      "LANNetwork": "172.16.0.0/16"
     },
     {
       "hostname": "CE1",
+      "vrfMember": "RED",
       "availableInt": 5,
       "int1": "g1/0",
       "loopback0": "2.2.2.2",
       "IPg1/0": "192.168.1.1",
-      "netmaskClient": "255.255.255.0"
+      "netmaskClient": "255.255.255.0",
+      "LANNetwork": "172.16.0.0/16"
     }
   ],
   "PE": [
@@ -37,7 +41,9 @@
       "IPg4/0": "10.0.0.5",
       "IPg5/0": "10.0.0.6",
       "netmaskClient": "255.255.255.0",
-      "netmaskCore": "255.255.255.252"
+      "netmaskCore": "255.255.255.252",
+      "LinkNetwork": "10.0.0.0",
+      "LinkNetworkNetmask": "0.0.0.3"
     },
     {
       "hostname": "PE1",
@@ -58,7 +64,9 @@
       "IPg4/0": "10.0.0.13",
       "IPg5/0": "10.0.0.14",
       "netmaskClient": "255.255.255.0",
-      "netmaskCore": "255.255.255.252"
+      "netmaskCore": "255.255.255.252",
+      "LinkNetwork": "10.0.0.1",
+      "LinkNetworkNetmask": "0.0.0.3"
     }
   ],
   "P": [

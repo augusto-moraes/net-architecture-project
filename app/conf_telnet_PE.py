@@ -32,7 +32,7 @@ def initial(node, conf_file):
             #CONF LOOPBACK
             tn.write(b"int Loopback0\r\n")
             tn.write(b"ip add " + node["loopback0"].encode('utf-8') + b" 255.255.255.255\r\n")
-            tn.write(b"ip ospf " + conf_file["OSPF_config"][0]["OSPFprocessId"].encode('utf-8') + b" area " +
+            tn.write(b"ip ospf " + conf_file["OSPF_config"][0]["processId"].encode('utf-8') + b" area " +
                      conf_file["OSPF_config"][0]["OSPFareaCore"].encode('utf-8') + b"\r\n")
 
             # Changes the IP for each int of the node
@@ -49,10 +49,10 @@ def initial(node, conf_file):
                 tn.write(b"ip add " + node["IP" + node["int" + str(i)]].encode('utf-8') + b" " + node["netmaskCore"].encode('utf-8') + b"\r\n")
                 tn.write(b"no sh\r\n")
                 tn.write(b"ip ospf network point-to-point\r\n")
-                tn.write(b"ip ospf " + conf_file["OSPF_config"][0]["OSPFprocessId"].encode('utf-8') + b" area " +
+                tn.write(b"ip ospf " + conf_file["OSPF_config"][0]["processId"].encode('utf-8') + b" area " +
                          conf_file["OSPF_config"][0]["OSPFareaCore"].encode('utf-8') + b"\r\n")
 
-            tn.write(b"router ospf " + conf_file["OSPF_config"][0]["OSPFprocessId"].encode('utf-8') + b"\r\n")
+            tn.write(b"router ospf " + conf_file["OSPF_config"][0]["processId"].encode('utf-8') + b"\r\n")
             tn.write(b"router-id " + node["loopback0"].encode('utf-8') + b"\r\n")
             tn.write(b"network " + node["LinkNetwork"].encode('utf-8') + b" " + node["LinkNetworkNetmask"].encode('utf-8') + b" area " + conf_file["OSPF_config"][0]["OSPFareaCore"].encode('utf-8') + b"\r\n")
             tn.write(b"mpls ldp autoconfig\r\n")

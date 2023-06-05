@@ -1,7 +1,7 @@
 {
   "project": {
-    "name": "test",
-    "description": "test desc",
+    "name": "TEST",
+    "description": "TEST description",
     "server_url": "http://192.168.33.128:3080",
     "user": "admin",
     "cred": "1234"
@@ -13,17 +13,17 @@
   },
   "ospf": {
     "coreArea": "1",
-    "clientArea": "1"
+    "processId": "1"
   },
   "bgp": {
     "coreAS": "1",
-    "clientA_AS": "1",
-    "clientB_AS": "1"
+    "clientA_AS": "2"
   },
   "vrf": {
-    "name": "11",
-    "RD": "1",
-    "RTexport": "1",
-    "RTimport": "1"
+    "name": "RED",
+    "vrfMembers": "CE1, CE2",
+    "RD": "4",
+    "RTexport": "4",
+    "RTimport": "4"
   }
 }

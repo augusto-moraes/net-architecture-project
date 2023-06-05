@@ -10,17 +10,14 @@
   "OSPF_config": [
     {
       "OSPFprocessId": "1",
-      "VrfOSPFprocessId": "2",
       "OSPFareaCore": "0"
     }
 
   ],
   "BGP_config": [
     {
-      "BGPprocessId": "1",
       "BGPCoreAS": "1",
-      "BGPClientAAS": "3",
-      "BGPClientBAS": "2"
+      "BGPClientAAS": "3"
     }
   ],
   "VRF_config": [
