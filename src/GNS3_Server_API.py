@@ -67,10 +67,17 @@ def create_matrix():
               [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], #CE1
               [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]] #CE2
 
+    matrix2 = [[0, 0, 1, 0, 1, 0],
+               [0, 0, 0, 1, 0, 1],
+               [1, 0, 0, 1, 0, 0],
+               [0, 1, 1, 0, 0, 0],
+               [1, 0, 0, 0, 0, 0],
+               [0, 1, 0, 0, 0, 0]]
+
     matrix_auto_gen = []
     # JE SAIS PAS COMMENT FAIRE ALED
 
-    return matrix
+    return matrix2
 
 
 def create_link(lab, matrix, routers, json_file):  # Create links between routers
