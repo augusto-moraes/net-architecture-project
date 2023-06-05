@@ -1,10 +1,15 @@
 {
   "project": {
+<<<<<<< Updated upstream
     "name": "test",
     "description": "test desc",
     "server_url": "http://192.168.33.128:3080",
     "user": "admin",
     "cred": "1234"
+=======
+    "name": "TEST",
+    "description": "TEST decription"
+>>>>>>> Stashed changes
   },
   "routers": {
     "nbOfCE": "2",
@@ -16,14 +21,21 @@
     "clientArea": "1"
   },
   "bgp": {
-    "coreAS": "1",
-    "clientA_AS": "1",
-    "clientB_AS": "1"
+    "coreAS": "2",
+    "clientA_AS": "4",
+    "clientB_AS": "3"
   },
   "vrf": {
+<<<<<<< Updated upstream
     "name": "11",
     "RD": "1",
     "RTexport": "1",
     "RTimport": "1"
+=======
+    "name": "RED",
+    "RD": "4",
+    "RTexport": "4",
+    "RTimport": "4"
+>>>>>>> Stashed changes
   }
 }
